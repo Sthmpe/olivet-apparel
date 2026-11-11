@@ -1,5 +1,7 @@
 # Olivet Apparel
 
+**Live:** https://olivet-apparel.vercel.app (deploys automatically from `main`)
+
 The portfolio and booking website for **Olivet Apparel**, a bespoke fashion house. Black and gold, built around one signature idea: **Follow the Thread**. A gold thread leaves the needle in the Olivet mark and sews the whole page together as you scroll, ending at the booking form.
 
 ## What's inside
