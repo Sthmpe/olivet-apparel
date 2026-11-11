@@ -25,7 +25,7 @@ export default async function CollectionPage({ params }: PageProps<"/collections
 
   return (
     <>
-      <PageHero kicker={`${c.kicker} · Collection ${String(idx + 1).padStart(2, "0")}`} title={<em className="gold-text">{c.title}</em>}>
+      <PageHero kicker="Styles" title={<em className="gold-text">{c.title}</em>}>
         {c.intro}
       </PageHero>
       <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-8">
@@ -38,7 +38,7 @@ export default async function CollectionPage({ params }: PageProps<"/collections
       <section className="border-t border-line">
         <Link href={`/collections/${next.slug}`} className="group mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-14 sm:px-8">
           <span>
-            <span className="kicker">Next collection</span>
+            <span className="kicker">Next</span>
             <span className="mt-3 block font-display text-4xl text-bone transition-colors group-hover:text-gold-light md:text-6xl">{next.title}</span>
           </span>
           <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-line text-gold transition-all duration-500 group-hover:border-gold group-hover:bg-gold group-hover:text-ink">

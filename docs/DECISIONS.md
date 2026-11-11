@@ -21,6 +21,9 @@
 | D14 | Inspiration photos are compressed in the browser and **emailed** as attachments, not stored. | No storage bill and no personal photos at rest. |
 | D15 | AI try-on is enabled per look via `tryOnGarment` (a clean garment photo). | IDM-VTON needs a real garment image; sketches can't be used. |
 
+| D16 | **Automatic light and dark mode** (follows the device). Dark is black with bright gold; light is warm ivory with deep gold. Garment panels and the footer stay black in both. Replaces the "one dark theme" part of D10. | Owner request. Ivory is the natural light partner for black and gold. |
+| D17 | **Plain, short copy.** The home page says what the business is in one line, then: what we make, how it works, book. Sections are named in plain words (Styles, About, Book now). No grain texture, shimmer or scroll effects. No em dashes in site copy. | Owner feedback: the first version was wordy, confusing and visually noisy. |
+
 ## Open questions for the client
 
 0. **Content check:** collection names, look names, the copy on /atelier, budget ranges (in ₦) and the city ("Lagos, Nigeria") are drafts. Please confirm or correct them.

@@ -13,8 +13,7 @@ export function LookCard({ look, priority = false }: { look: Look; priority?: bo
       href={`/looks/${look.slug}`}
       className="group relative block overflow-hidden rounded-[1.75rem] border border-line bg-ink-3 transition-colors duration-500 hover:border-gold/60"
     >
-      <div className="relative aspect-[4/5] overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(60%_50%_at_50%_45%,rgba(211,149,47,0.14),transparent)] transition-opacity duration-700 group-hover:opacity-150" />
+      <div className="on-dark art-well relative aspect-[4/5] overflow-hidden">
         {cover ? (
           <Image
             src={cover.src}
@@ -31,7 +30,7 @@ export function LookCard({ look, priority = false }: { look: Look; priority?: bo
             <GarmentArt look={look} progress={0.2} title={`${look.title}, sketch`} className="absolute inset-0 m-auto h-[88%] w-auto opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
           </>
         )}
-        <span className="absolute left-4 top-4 rounded-full border border-line bg-ink/70 px-3 py-1 font-caps text-[0.58rem] tracking-[0.25em] text-gold backdrop-blur">
+        <span className="absolute left-4 top-4 rounded-full border border-line bg-black/60 px-3 py-1 font-caps text-[0.58rem] tracking-[0.25em] text-gold">
           {col?.kicker}
         </span>
       </div>

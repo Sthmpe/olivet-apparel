@@ -6,7 +6,7 @@ import { useCallback, useEffect, useRef, useState, type ReactNode } from "react"
  * "Follow the Thread": a gold thread that sews the page together as you scroll.
  *
  * Any descendant with `data-stitch="left|right|center|<0-100>"` becomes a point the
- * thread passes through (an eyelet). `data-stitch-y` (0–1) sets where on the element.
+ * thread passes through (an eyelet). `data-stitch-y` (0 to 1) sets where on the element.
  * The thread is decoration only: aria-hidden, pointer-events none.
  */
 
@@ -31,7 +31,6 @@ function smoothPath(pts: Pt[]) {
 export function ThreadStage({ children, className = "" }: { children: ReactNode; className?: string }) {
   const wrap = useRef<HTMLDivElement>(null);
   const path = useRef<SVGPathElement>(null);
-  const glow = useRef<SVGPathElement>(null);
   const tip = useRef<SVGCircleElement>(null);
   const table = useRef<{ len: number; y: number }[]>([]);
   const total = useRef(0);
@@ -80,7 +79,6 @@ export function ThreadStage({ children, className = "" }: { children: ReactNode;
     const L = p.getTotalLength();
     total.current = L;
     p.style.strokeDasharray = String(L);
-    if (glow.current) glow.current.style.strokeDasharray = String(L);
     const n = 240;
     table.current = Array.from({ length: n + 1 }, (_, i) => ({ len: (L * i) / n, y: p.getPointAtLength((L * i) / n).y }));
   }, [geo.d]);
@@ -109,7 +107,6 @@ export function ThreadStage({ children, className = "" }: { children: ReactNode;
       }
       const off = String(L - len);
       p.style.strokeDashoffset = off;
-      if (glow.current) glow.current.style.strokeDashoffset = off;
       if (tip.current) {
         const pt = p.getPointAtLength(Math.max(0.1, len));
         tip.current.setAttribute("cx", String(pt.x));
@@ -146,35 +143,13 @@ export function ThreadStage({ children, className = "" }: { children: ReactNode;
           height={geo.h}
           viewBox={`0 0 ${geo.w} ${geo.h}`}
         >
-          <defs>
-            <linearGradient id="thread-gold" x1="0" y1="0" x2="0" y2={geo.h} gradientUnits="userSpaceOnUse">
-              <stop offset="0" stopColor="#fada81" />
-              <stop offset="0.3" stopColor="#d3952f" />
-              <stop offset="0.6" stopColor="#fada81" />
-              <stop offset="1" stopColor="#d3952f" />
-            </linearGradient>
-            <filter id="thread-blur" x="-10%" y="-10%" width="120%" height="120%">
-              <feGaussianBlur stdDeviation="4" />
-            </filter>
-          </defs>
           {/* faint guide: where the thread will go */}
-          <path d={geo.d} fill="none" stroke="#d3952f" strokeOpacity="0.08" strokeWidth="1" strokeDasharray="2 7" />
-          <path
-            ref={glow}
-            d={geo.d}
-            fill="none"
-            stroke="#d3952f"
-            strokeOpacity="0.5"
-            strokeWidth="5"
-            filter="url(#thread-blur)"
-            strokeDasharray={total.current || 100000}
-            strokeDashoffset={total.current || 100000}
-          />
+          <path d={geo.d} fill="none" stroke="var(--gold)" strokeOpacity="0.12" strokeWidth="1" strokeDasharray="2 7" />
           <path
             ref={path}
             d={geo.d}
             fill="none"
-            stroke="url(#thread-gold)"
+            stroke="var(--gold)"
             strokeWidth="1.6"
             strokeLinecap="round"
             strokeDasharray={total.current || 100000}
@@ -182,11 +157,11 @@ export function ThreadStage({ children, className = "" }: { children: ReactNode;
           />
           {geo.pts.map((pt, i) => (
             <g key={i} style={{ transition: "opacity .6s" }} opacity={i <= reached ? 1 : 0.25}>
-              <circle cx={pt.x} cy={pt.y} r="5.5" fill="#050505" stroke="#d3952f" strokeWidth="1.2" />
-              <circle cx={pt.x} cy={pt.y} r="1.8" fill={i <= reached ? "#fada81" : "#5a4a2a"} />
+              <circle cx={pt.x} cy={pt.y} r="5.5" fill="var(--ink)" stroke="var(--gold)" strokeWidth="1.2" />
+              <circle cx={pt.x} cy={pt.y} r="1.8" fill="var(--gold)" opacity={i <= reached ? 1 : 0.4} />
             </g>
           ))}
-          <circle ref={tip} r="3" fill="#fada81" style={{ filter: "drop-shadow(0 0 6px #fada81)", opacity: 0 }} />
+          <circle ref={tip} r="3" fill="var(--gold)" style={{ opacity: 0 }} />
         </svg>
       )}
       <div className="relative z-10">{children}</div>

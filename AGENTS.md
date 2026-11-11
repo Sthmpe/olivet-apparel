@@ -4,10 +4,12 @@ This project is a portfolio and booking site for the fashion designer behind Oli
 
 ## Rules
 
+0. Keep copy short and plain. A first-time visitor must understand in five seconds that this is a fashion designer who makes custom outfits you can book. No em dashes in site copy.
+
 1. Booking is the #1 job. Never ship a change that makes booking slower or less reliable.
 2. Clothes first: UI must make the garments look better, never compete with them.
 3. "Follow the Thread" is the only signature effect. Keep everything else restrained.
-4. No generic dashboard, template or chatbot styling. Premium, editorial and calm. Brand colours are **black and gold**, taken from the logo in `public/brand/`.
+4. No generic dashboard, template or chatbot styling. Premium, editorial and calm. Brand colours are **black and gold**, taken from the logo in `public/brand/`. The site follows the device theme: black and gold in dark mode, ivory and deep gold in light mode (tokens in `src/app/globals.css`).
 5. Mobile-first. Pages must be fast on mobile data (Lighthouse ≥ 90 mobile).
 6. Respect `prefers-reduced-motion`; booking and browsing must work without JS.
 7. Use SQL (PostgreSQL) with plain, parameterised queries (tagged templates in `src/lib/db.ts`). Never build queries by string concatenation.

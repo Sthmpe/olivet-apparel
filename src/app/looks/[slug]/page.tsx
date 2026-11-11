@@ -49,11 +49,10 @@ export default async function LookPage({ params }: PageProps<"/looks/[slug]">) {
   return (
     <>
       <section className="relative overflow-hidden pt-28 md:pt-32">
-        <div className="pointer-events-none absolute -left-40 top-20 h-[40rem] w-[40rem] rounded-full bg-[radial-gradient(closest-side,rgba(211,149,47,0.12),transparent)]" />
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-8">
+                <div className="relative mx-auto max-w-7xl px-4 sm:px-8">
           <nav aria-label="Breadcrumb" className="text-xs tracking-wide text-mute">
             <Link href="/collections" className="hover:text-gold-light">
-              Collections
+              Styles
             </Link>
             <span className="mx-2 text-gold/50">/</span>
             <Link href={`/collections/${col.slug}`} className="hover:text-gold-light">
@@ -71,21 +70,21 @@ export default async function LookPage({ params }: PageProps<"/looks/[slug]">) {
             <div>
               <p className="kicker">{col.title}</p>
               <h1 className="mt-4 font-display text-6xl font-light leading-none text-bone md:text-7xl">{look.title}</h1>
-              <p className="mt-8 font-display text-2xl font-light italic leading-snug text-bone/85">{look.story}</p>
+              <p className="mt-8 text-lg leading-relaxed text-mute">{look.story}</p>
 
               <div className="mt-10 flex flex-wrap gap-3">
                 <Link href={`/book?look=${look.slug}`} className="btn-gold">
-                  Book this look
+                  Book this style
                 </Link>
                 <TryOn slug={look.slug} title={look.title} ready={Boolean(look.tryOnGarment)} />
               </div>
               <a
-                href={whatsappLink(`Hello Olivet Apparel ✨ I'm interested in "${look.title}" (${col.title}). Could you tell me more?`)}
+                href={whatsappLink(`Hello Olivet Apparel, I am interested in "${look.title}" (${col.title}). Could you tell me more?`)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-5 inline-flex items-center gap-2 text-sm text-mute transition-colors hover:text-gold-light"
               >
-                <WhatsAppIcon className="h-4 w-4" /> Ask about this look on WhatsApp
+                <WhatsAppIcon className="h-4 w-4" /> Ask about this style on WhatsApp
               </a>
 
               <dl className="mt-12 divide-y divide-line border-y border-line">
@@ -97,7 +96,7 @@ export default async function LookPage({ params }: PageProps<"/looks/[slug]">) {
                 ))}
               </dl>
 
-              <h2 className="mt-12 kicker">The details</h2>
+              <h2 className="mt-12 kicker">Details</h2>
               <ul className="mt-5 space-y-3">
                 {look.details.map((d) => (
                   <li key={d} className="flex items-start gap-3 text-bone/85">
@@ -110,8 +109,7 @@ export default async function LookPage({ params }: PageProps<"/looks/[slug]">) {
               <div className="mt-12 rounded-[1.5rem] border border-line bg-ink-3 p-6">
                 <p className="font-display text-2xl text-bone">Make it yours</p>
                 <p className="mt-2 text-sm leading-relaxed text-mute">
-                  Every Olivet piece can be adapted: a different colour, a sleeve, a longer train, a modest neckline. Tell us
-                  in your booking and we&apos;ll sketch the changes with you.
+                  Want a different colour, sleeve or length? Tell us when you book.
                 </p>
               </div>
             </div>
@@ -121,7 +119,7 @@ export default async function LookPage({ params }: PageProps<"/looks/[slug]">) {
 
       <section className="border-t border-line bg-ink-2/60">
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-8">
-          <p className="kicker">You may also love</p>
+          <p className="kicker">You may also like</p>
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {related.map((l) => (
               <LookCard key={l.slug} look={l} />

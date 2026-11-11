@@ -51,12 +51,12 @@ export function TryOn({ slug, title, ready }: { slug: string; title: string; rea
           <path d="M12 3l1.8 4.6L18 9l-4.2 1.4L12 15l-1.8-4.6L6 9l4.2-1.4z" />
           <path d="M19 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z" />
         </svg>
-        Wear it · AI try-on
+        Try it on with AI
       </button>
 
       <dialog
         ref={dialog}
-        className="m-auto w-[min(36rem,calc(100vw-2rem))] rounded-[2rem] border border-line bg-ink-2 p-0 text-bone backdrop:bg-black/80 backdrop:backdrop-blur-sm"
+        className="m-auto w-[min(36rem,calc(100vw-2rem))] rounded-[2rem] border border-line bg-ink-2 p-0 text-bone backdrop:bg-black/80"
         aria-labelledby="tryon-title"
       >
         <div className="relative p-7 sm:p-9">
@@ -68,22 +68,17 @@ export function TryOn({ slug, title, ready }: { slug: string; title: string; rea
           >
             ✕
           </button>
-          <p className="kicker">Virtual fitting room</p>
+          <p className="kicker">AI try-on</p>
           <h2 id="tryon-title" className="mt-3 pr-10 font-display text-4xl font-light">
-            Wear <em className="gold-text">{title}</em>
+            Try on <em className="gold-text">{title}</em>
           </h2>
 
           {!ready ? (
             <div className="mt-6 space-y-4 text-mute">
-              <p>
-                {title} is being photographed for the virtual fitting room. Once its garment photo is in, you&apos;ll be able
-                to see it on yourself right here.
-              </p>
-              <p>
-                Can&apos;t wait? Book a consultation and we&apos;ll sketch {title} on your silhouette, in your colours.
-              </p>
+              <p>AI try-on for {title} is coming soon. You will be able to upload a photo and see this style on yourself.</p>
+              <p>For now, book this style and we will show you how it will look on you.</p>
               <Link href={`/book?look=${slug}`} className="btn-gold mt-2">
-                Book this look
+                Book this style
               </Link>
             </div>
           ) : state.s === "idle" || state.s === "error" ? (
@@ -128,7 +123,7 @@ export function TryOn({ slug, title, ready }: { slug: string; title: string; rea
                     <svg viewBox="0 0 40 40" className="h-12 w-12 animate-spin text-gold [animation-duration:2.4s]" fill="none" stroke="currentColor" aria-hidden="true">
                       <circle cx="20" cy="20" r="16" strokeDasharray="4 6" />
                     </svg>
-                    <p className="mt-4 font-display text-xl italic">Stitching your look…</p>
+                    <p className="mt-4 font-display text-xl">Creating your preview…</p>
                     <p className="mt-1 px-4 text-center text-xs text-mute">Usually under a minute</p>
                   </div>
                 )}

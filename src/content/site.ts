@@ -5,9 +5,9 @@
 export const site = {
   name: "Olivet Apparel",
   designer: "Titilayomi",
-  tagline: "Made for one. Sewn for you.",
+  tagline: "Custom outfits, made to fit you.",
   description:
-    "Olivet Apparel is a bespoke fashion house creating bridal, celebration, evening and everyday couture, designed around your body, your story and your day.",
+    "Olivet Apparel makes custom bridal, owambe, evening and everyday outfits in Lagos, sewn to your measurements.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://olivet-apparel.vercel.app",
   // International format, digits only. Display form: +234 812 686 6152
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "2348126866152",
@@ -23,7 +23,7 @@ export function whatsappLink(text: string) {
 }
 
 export const nav = [
-  { href: "/collections", label: "Collections" },
-  { href: "/style-finder", label: "Style Finder" },
-  { href: "/atelier", label: "The Atelier" },
+  { href: "/collections", label: "Styles" },
+  { href: "/style-finder", label: "Find my style" },
+  { href: "/atelier", label: "About" },
 ] as const;

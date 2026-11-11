@@ -6,10 +6,10 @@ import type { Look, Stage } from "@/content/looks";
 import { GarmentArt, STAGE_AT } from "./GarmentArt";
 
 const STAGES: { id: Stage; label: string; note: string }[] = [
-  { id: "sketch", label: "Sketch", note: "It starts with a line on paper, drawn for you." },
-  { id: "fabric", label: "Fabric", note: "The cloth is chosen by hand: weight, sheen, the way it falls." },
-  { id: "fitting", label: "Fitting", note: "Chalk, pins and patience. Shaped to your body, not a size." },
-  { id: "final", label: "Final", note: "Finished by hand and ready for your day." },
+  { id: "sketch", label: "Sketch", note: "First, we draw your design." },
+  { id: "fabric", label: "Fabric", note: "Then we choose the fabric together." },
+  { id: "fitting", label: "Fitting", note: "We fit it on you and adjust." },
+  { id: "final", label: "Final", note: "Finished and ready to wear." },
 ];
 
 function stageOf(p: number): Stage {
@@ -70,8 +70,7 @@ export function FittingRoom({ look, autoplay = true, compact = false }: { look: 
 
   return (
     <div ref={box} className="flex flex-col items-center">
-      <div className={`relative w-full ${compact ? "max-w-sm" : "max-w-md"}`}>
-        <div className="pointer-events-none absolute inset-x-8 bottom-6 top-10 rounded-full bg-[radial-gradient(closest-side,rgba(211,149,47,0.18),transparent)]" />
+      <div className={`on-dark art-well relative w-full rounded-[2rem] border border-line p-6 ${compact ? "max-w-sm" : "max-w-md"}`}>
         {photos.length ? (
           <div className="relative aspect-[24/34] w-full overflow-hidden rounded-[2rem]">
             {STAGES.map((s) => {
@@ -122,7 +121,7 @@ export function FittingRoom({ look, autoplay = true, compact = false }: { look: 
             </button>
           ))}
         </div>
-        <p className="mt-5 min-h-[3rem] text-center font-display text-xl italic text-bone/85" aria-live="polite">
+        <p className="mt-5 min-h-[3rem] text-center font-display text-xl text-bone" aria-live="polite">
           {current.note}
         </p>
       </div>

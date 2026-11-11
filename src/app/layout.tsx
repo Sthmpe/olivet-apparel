@@ -28,7 +28,7 @@ const jost = Jost({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} | Bespoke Bridal, Celebration & Evening Wear`,
+    default: `${site.name} | Custom-made outfits in Lagos`,
     template: `%s | ${site.name}`,
   },
   description: site.description,
@@ -42,13 +42,17 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#050505",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#faf6ee" },
+    { media: "(prefers-color-scheme: dark)", color: "#050505" },
+  ],
+  colorScheme: "light dark",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${cormorant.variable} ${cinzel.variable} ${jost.variable} antialiased`}>
-      <body className="grain flex min-h-dvh flex-col">
+      <body className="flex min-h-dvh flex-col">
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-gold focus:px-4 focus:py-2 focus:text-ink"

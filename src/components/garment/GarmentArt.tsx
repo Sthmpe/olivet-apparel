@@ -8,7 +8,7 @@ import { FabricPattern } from "./FabricPattern";
 
 const clamp = (v: number) => Math.min(1, Math.max(0, v));
 
-/** Progress (0–1) at which each stage of the Fitting Room is fully shown. */
+/** Progress (0 to 1) at which each stage of the Fitting Room is fully shown. */
 export const STAGE_AT = { sketch: 0.2, fabric: 0.42, fitting: 0.62, final: 1 } as const;
 
 type Props = {

@@ -18,7 +18,7 @@ const questions: Q[] = [
     title: "What are we dressing you for?",
     options: [
       { value: "bridal", label: "My wedding", hint: "The aisle, the reception, the moment", look: "the-aurelia" },
-      { value: "celebration", label: "A celebration", hint: "Owambe, birthdays, asoebi", look: "royal-ember" },
+      { value: "celebration", label: "A party", hint: "Owambe, birthdays, asoebi", look: "royal-ember" },
       { value: "evening", label: "An evening", hint: "Galas, dinners, red carpets", look: "midnight-gilt" },
       { value: "everyday", label: "Everyday life", hint: "Work, church, weekends", look: "the-directress" },
     ],
@@ -77,7 +77,6 @@ export function StyleFinder() {
 
   return (
     <section className="relative min-h-dvh overflow-hidden pt-28 md:pt-36">
-      <div className="pointer-events-none absolute left-1/2 top-0 h-[34rem] w-[60rem] -translate-x-1/2 bg-[radial-gradient(closest-side,rgba(211,149,47,0.13),transparent)]" />
       <div className="relative mx-auto max-w-6xl px-4 pb-24 sm:px-8">
         {/* progress thread */}
         <div className="flex items-center gap-2" aria-hidden="true">
@@ -87,7 +86,7 @@ export function StyleFinder() {
             </span>
           ))}
         </div>
-        <p className="kicker mt-6">{done ? "Your style signature" : `Style Finder · ${step + 1} of ${questions.length}`}</p>
+        <p className="kicker mt-6">{done ? "Your matches" : `Question ${step + 1} of ${questions.length}`}</p>
 
         {!done ? (
           <div key={step} className="rise">
@@ -102,7 +101,7 @@ export function StyleFinder() {
                     onClick={() => choose(o.value)}
                     className="group flex flex-col overflow-hidden rounded-[1.75rem] border border-line bg-ink-3 text-left transition-all duration-500 hover:-translate-y-1 hover:border-gold/70"
                   >
-                    <span className="relative flex aspect-[4/3] items-center justify-center bg-[radial-gradient(60%_60%_at_50%_50%,rgba(211,149,47,0.12),transparent)]">
+                    <span className="on-dark art-well relative flex aspect-[4/3] items-center justify-center">
                       {look ? (
                         <GarmentArt look={look} progress={0.2} className="h-[85%] w-auto transition-opacity duration-500 group-hover:opacity-0" />
                       ) : o.colors ? (
@@ -140,7 +139,7 @@ export function StyleFinder() {
                 </span>
               ))}
             </h1>
-            <p className="mt-6 max-w-xl text-mute">These are the looks closest to your signature. Each can be adapted to you, so think of them as a starting sketch.</p>
+            <p className="mt-6 max-w-xl text-mute">These styles match your answers. Any of them can be changed to suit you.</p>
             <div className="mt-12 grid gap-6 md:grid-cols-3">
               {results.map(({ look, pct }, i) => (
                 <Link
@@ -148,9 +147,9 @@ export function StyleFinder() {
                   href={`/looks/${look.slug}`}
                   className="group relative overflow-hidden rounded-[1.75rem] border border-line bg-ink-3 transition-colors hover:border-gold/70"
                 >
-                  <span className="absolute right-4 top-4 z-10 rounded-full border border-gold/50 bg-ink/80 px-3 py-1 text-xs text-gold-light">{pct}% match</span>
-                  {i === 0 && <span className="absolute left-4 top-4 z-10 font-caps text-[0.6rem] tracking-[0.3em] text-gold">Best match</span>}
-                  <span className="flex aspect-[4/5] items-center justify-center bg-[radial-gradient(60%_50%_at_50%_45%,rgba(211,149,47,0.14),transparent)]">
+                  <span className="absolute right-4 top-4 z-10 rounded-full border border-gold/50 bg-black/70 px-3 py-1 text-xs text-[#fada81]">{pct}% match</span>
+                  {i === 0 && <span className="absolute left-4 top-4 z-10 font-caps text-[0.6rem] tracking-[0.3em] text-[#fada81]">Best match</span>}
+                  <span className="on-dark art-well flex aspect-[4/5] items-center justify-center">
                     <GarmentArt look={look} animateDraw={false} className="h-[86%] w-auto" />
                   </span>
                   <span className="block border-t border-line p-5">
@@ -162,7 +161,7 @@ export function StyleFinder() {
             </div>
             <div className="mt-12 flex flex-wrap gap-4">
               <Link href={`/book?look=${results.map((r) => r.look.slug).join(",")}&style=${encodeURIComponent(styleParam)}`} className="btn-gold">
-                Book with my style
+                Book one of these
               </Link>
               <button
                 type="button"

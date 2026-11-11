@@ -34,7 +34,7 @@ export function CollectionBrowser() {
 
   return (
     <section className="mx-auto max-w-7xl px-4 pb-28 sm:px-8">
-      <div className="sticky top-16 z-30 -mx-4 border-y border-line bg-ink/90 px-4 py-4 backdrop-blur-md sm:mx-0 sm:rounded-full sm:border sm:px-4 md:top-24">
+      <div className="sticky top-16 z-30 -mx-4 border-y border-line bg-ink px-4 py-4 sm:mx-0 sm:rounded-full sm:border sm:px-4 md:top-24">
         <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Filter by occasion">
           <button type="button" className={chip(!occasion)} onClick={() => set("occasion", null)} aria-pressed={!occasion}>
             All
@@ -70,7 +70,7 @@ export function CollectionBrowser() {
       </div>
 
       <p className="mt-8 text-sm text-mute" aria-live="polite">
-        {shown.length} {shown.length === 1 ? "look" : "looks"}
+        {shown.length} {shown.length === 1 ? "style" : "styles"}
         {fabric || occasion ? (
           <button type="button" className="ml-3 text-gold underline-offset-4 hover:underline" onClick={() => router.replace(pathname, { scroll: false })}>
             Clear filters
@@ -86,10 +86,10 @@ export function CollectionBrowser() {
         </div>
       ) : (
         <div className="mt-10 rounded-[2rem] border border-line p-12 text-center">
-          <p className="font-display text-3xl text-bone">Nothing on the rail for that combination yet.</p>
-          <p className="mt-3 text-mute">But anything can be made. Tell us what you have in mind.</p>
+          <p className="font-display text-3xl text-bone">No styles match that yet.</p>
+          <p className="mt-3 text-mute">We can still make it. Tell us what you want.</p>
           <a href="/book" className="btn-gold mt-8">
-            Request a custom piece
+            Request a custom outfit
           </a>
         </div>
       )}

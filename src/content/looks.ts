@@ -67,42 +67,16 @@ export type Collection = {
 
 export const occasions: { id: Occasion; label: string }[] = [
   { id: "bridal", label: "Bridal" },
-  { id: "celebration", label: "Celebration" },
+  { id: "celebration", label: "Owambe" },
   { id: "evening", label: "Evening" },
   { id: "everyday", label: "Everyday" },
 ];
 
 export const collections: Collection[] = [
-  {
-    slug: "gilded-vows",
-    title: "Gilded Vows",
-    occasion: "bridal",
-    kicker: "Bridal",
-    intro:
-      "Gowns for the walk you will remember forever: hand-finished lace, sculpted bodices and trains that move like light.",
-  },
-  {
-    slug: "owambe-royale",
-    title: "Owambe Royale",
-    occasion: "celebration",
-    kicker: "Celebration",
-    intro:
-      "Aso-oke, adire and lace reimagined for the party of the year. Made to be seen from across the hall.",
-  },
-  {
-    slug: "after-dark",
-    title: "After Dark",
-    occasion: "evening",
-    kicker: "Evening",
-    intro: "Black, gold and the colours of midnight. Evening wear with a quiet, unforgettable presence.",
-  },
-  {
-    slug: "everyday-couture",
-    title: "Everyday Couture",
-    occasion: "everyday",
-    kicker: "Everyday",
-    intro: "Tailoring for the office, church and weekend: bespoke fit, easy elegance, made to be worn often.",
-  },
+  { slug: "gilded-vows", title: "Bridal", occasion: "bridal", kicker: "Bridal", intro: "Wedding gowns and reception looks." },
+  { slug: "owambe-royale", title: "Owambe", occasion: "celebration", kicker: "Owambe", intro: "Aso-oke, adire and lace for parties and asoebi." },
+  { slug: "after-dark", title: "Evening", occasion: "evening", kicker: "Evening", intro: "Gowns for dinners, galas and red carpets." },
+  { slug: "everyday-couture", title: "Everyday", occasion: "everyday", kicker: "Everyday", intro: "Tailored pieces for work, church and weekends." },
 ];
 
 export const looks: Look[] = [

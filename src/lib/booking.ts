@@ -4,13 +4,13 @@ export const STATUSES = ["new", "contacted", "fitting_booked", "in_progress", "d
 
 export const OCCASIONS = [
   { value: "bridal", label: "Wedding / bridal" },
-  { value: "celebration", label: "Celebration / owambe / asoebi" },
+  { value: "celebration", label: "Owambe / party / asoebi" },
   { value: "evening", label: "Evening / gala / dinner" },
   { value: "everyday", label: "Everyday / work / church" },
   { value: "other", label: "Something else" },
 ] as const;
 
-export const BUDGETS = ["Under ₦150k", "₦150k – ₦350k", "₦350k – ₦750k", "₦750k – ₦1.5m", "₦1.5m and above", "Not sure yet"] as const;
+export const BUDGETS = ["Under ₦150k", "₦150k to ₦350k", "₦350k to ₦750k", "₦750k to ₦1.5m", "₦1.5m and above", "Not sure yet"] as const;
 
 export const FITS = [
   { value: "in_person_fitting", label: "Book an in-person fitting", hint: "We measure you at the studio" },
@@ -107,13 +107,13 @@ export function labelFor<T extends { value: string; label: string }>(list: reado
 /** Plain-text brief used for WhatsApp and as the email's text version. */
 export function briefText(ref: string, b: BookingInput) {
   const lines = [
-    `New Olivet Apparel booking · ${ref}`,
+    `New Olivet Apparel booking ${ref}`,
     `Name: ${b.fullName}`,
     `Phone: ${b.phone}`,
     b.email ? `Email: ${b.email}` : null,
     `Occasion: ${labelFor(OCCASIONS, b.occasion)}`,
     b.eventDate ? `Event date: ${b.eventDate}` : null,
-    b.looks.length ? `Looks: ${b.looks.map((s) => getLook(s)?.title ?? s).join(", ")}` : null,
+    b.looks.length ? `Styles: ${b.looks.map((s) => getLook(s)?.title ?? s).join(", ")}` : null,
     `Fit: ${labelFor(FITS, b.fit)}`,
     b.measurements ? `Measurements: ${Object.entries(b.measurements).map(([k, v]) => `${k} ${v}`).join(", ")}` : null,
     `Delivery: ${b.delivery}`,

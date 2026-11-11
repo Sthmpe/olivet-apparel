@@ -5,7 +5,7 @@ import { collections } from "@/content/looks";
 
 export function Footer() {
   return (
-    <footer className="relative border-t border-line bg-ink-2">
+    <footer className="on-dark relative border-t border-line bg-ink-2">
       <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-8 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div>
           <Image src="/brand/lockup.png" alt="Olivet Apparel" width={180} height={138} className="h-auto w-40" />
@@ -13,7 +13,7 @@ export function Footer() {
         </div>
 
         <div>
-          <p className="kicker mb-5">Collections</p>
+          <p className="kicker mb-5">Styles</p>
           <ul className="space-y-3 text-sm text-bone/80">
             {collections.map((c) => (
               <li key={c.slug}>
@@ -37,7 +37,7 @@ export function Footer() {
             ))}
             <li>
               <Link className="transition-colors hover:text-gold-light" href="/book">
-                Book a consultation
+                Book now
               </Link>
             </li>
           </ul>
@@ -53,7 +53,7 @@ export function Footer() {
               </a>
             </li>
             <li>
-              <a className="transition-colors hover:text-gold-light" href={whatsappLink("Hello Olivet Apparel ✨")} target="_blank" rel="noopener noreferrer">
+              <a className="transition-colors hover:text-gold-light" href={whatsappLink("Hello Olivet Apparel")} target="_blank" rel="noopener noreferrer">
                 WhatsApp
               </a>
             </li>
@@ -72,8 +72,8 @@ export function Footer() {
       </div>
       <div className="hairline opacity-40" />
       <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-2 px-4 py-6 text-xs tracking-wide text-mute sm:flex-row sm:items-center sm:px-8">
-        <p>© Olivet Apparel by {site.designer}. Every piece made by hand, for one person.</p>
-        <p className="font-caps tracking-[0.3em] text-gold/70">Follow the thread</p>
+        <p>© Olivet Apparel by {site.designer}</p>
+        <p>Custom outfits, made to fit you.</p>
       </div>
     </footer>
   );

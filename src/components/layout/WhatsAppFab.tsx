@@ -16,11 +16,11 @@ export function WhatsAppFab() {
   if (pathname.startsWith("/studio")) return null;
   return (
     <a
-      href={whatsappLink("Hello Olivet Apparel ✨ I'd love to talk about a custom piece.")}
+      href={whatsappLink("Hello Olivet Apparel, I would like to order an outfit.")}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with Olivet Apparel on WhatsApp"
-      className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full border border-gold/50 bg-ink/80 text-gold-light shadow-[0_10px_40px_-10px_rgba(211,149,47,0.6)] backdrop-blur transition-all duration-300 hover:scale-105 hover:border-gold hover:bg-gold hover:text-ink"
+      className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#0c0b0a] text-[#fada81] shadow-lg ring-1 ring-[#d3952f]/60 transition-transform duration-300 hover:scale-105"
     >
       <WhatsAppIcon className="h-6 w-6" />
     </a>

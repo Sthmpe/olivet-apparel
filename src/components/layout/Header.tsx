@@ -27,12 +27,14 @@ export function Header() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-        scrolled || open ? "border-b border-line bg-ink/85 backdrop-blur-md" : "border-b border-transparent"
+        scrolled || open ? "border-b border-line bg-ink/95" : "border-b border-transparent"
       }`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-8 md:h-20">
         <Link href="/" className="group flex items-center gap-3" aria-label="Olivet Apparel, home" onClick={() => setOpen(false)}>
-          <Image src="/brand/mark.png" alt="" width={44} height={35} className="h-8 w-auto transition-transform duration-500 group-hover:rotate-[-4deg] md:h-9" priority />
+          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-black md:h-11 md:w-11">
+            <Image src="/brand/mark.png" alt="" width={44} height={35} className="h-6 w-auto md:h-7" priority />
+          </span>
           <span className="leading-none">
             <span className="block font-caps text-[1.05rem] tracking-[0.28em] text-bone">OLIVET</span>
             <span className="block font-caps text-[0.55rem] tracking-[0.62em] text-gold">APPAREL</span>
@@ -56,7 +58,7 @@ export function Header() {
             );
           })}
           <Link href="/book" className="btn-gold !px-5 !py-3">
-            Book
+            Book now
           </Link>
         </nav>
 
@@ -93,7 +95,7 @@ export function Header() {
             </Link>
           ))}
           <Link href="/book" onClick={() => setOpen(false)} className="btn-gold mt-6 self-start">
-            Book a consultation
+            Book now
           </Link>
         </nav>
       </div>

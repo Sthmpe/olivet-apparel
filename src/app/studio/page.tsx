@@ -131,7 +131,7 @@ async function StudioContent() {
                     className="btn-gold !px-4 !py-2.5"
                     target="_blank"
                     rel="noopener noreferrer"
-                    href={`https://wa.me/${r.phone.replace(/\D/g, "").replace(/^0/, "234")}?text=${encodeURIComponent(`Hello ${r.full_name.split(" ")[0]}, thank you for booking with Olivet Apparel (${r.reference}) ✨`)}`}
+                    href={`https://wa.me/${r.phone.replace(/\D/g, "").replace(/^0/, "234")}?text=${encodeURIComponent(`Hello ${r.full_name.split(" ")[0]}, thank you for booking with Olivet Apparel (${r.reference})`)}`}
                   >
                     WhatsApp
                   </a>
