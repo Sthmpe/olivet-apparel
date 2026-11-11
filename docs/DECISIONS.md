@@ -14,15 +14,23 @@
 | D8 | No blog, no shop/cart and no visitor accounts in v1 | Keep it focused and uncluttered. |
 | D9 | Next.js + TypeScript + Tailwind on Vercel | Fast, free hosting, and a stack the team already uses. |
 
+| D10 | Brand colours are **black and gold**, from the client's logo. One dark theme. | Client supplied the logo and colours. |
+| D11 | Until photography exists, looks are **drawn in code** as gold atelier sketches (sketch → fabric → fitting → final). | No photos yet; this matches the logo style and powers the Fitting Room without stock images. Real photos replace them per look. |
+| D12 | Portfolio content lives in `src/content/*.ts` for v1. Only **bookings** are in SQL. | Fastest route to launch. Editing looks from `/studio` is a later milestone. |
+| D13 | Booking confirmation is shown inline on `/book` (no separate thank-you route). | One less page load. The WhatsApp hand-off is right there. |
+| D14 | Inspiration photos are compressed in the browser and **emailed** as attachments, not stored. | No storage bill and no personal photos at rest. |
+| D15 | AI try-on is enabled per look via `tryOnGarment` (a clean garment photo). | IDM-VTON needs a real garment image; sketches can't be used. |
+
 ## Open questions for the client
 
+0. **Content check:** collection names, look names, the copy on /atelier, budget ranges (in ₦) and the city ("Lagos, Nigeria") are drafts. Please confirm or correct them.
 1. **What does she make?** Bridal? Braids/hair? Ready-to-wear? Aso-ebi / owambe / traditional? Menswear? Kids? This changes the categories and the Style Finder questions.
 2. **Show prices?** "Starting from" prices, price ranges, or "price on request"?
 3. **Where are her clients?** A local city only, nationwide, or international (shipping)? Which currency?
 4. **Contact details:** the booking-alert email address, the WhatsApp number, Instagram handle.
 5. **Fittings:** does she have a studio address for in-person fittings, or does she work from client measurements?
 6. **Turnaround:** typical lead time, and does she offer rush orders?
-7. **Brand assets:** an existing logo or colours? Is "olive gold" OK as the thread accent?
+7. ~~**Brand assets**~~: answered. Black and gold, logo supplied.
 8. **Photos:** does she have sketches and fitting photos (not only final shots)? The timeline feature is strongest with them, and she can start saving them now.
 9. **Domain:** e.g. `olivetapparel.com`. Is it purchased?
 10. **Deposits:** does she want online deposit payments later (Paystack/Flutterwave/Stripe)?

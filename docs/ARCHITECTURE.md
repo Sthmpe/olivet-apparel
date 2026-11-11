@@ -1,5 +1,7 @@
 # Architecture
 
+> **Built (v1):** Next.js 16 + Tailwind 4 on Vercel. Bookings are stored in Postgres (auto-created table, see `db/schema.sql`) and emailed through Resend's HTTP API (no SDK). Portfolio content lives in `src/content/`. Images: `/public` + `next/image` (Cloudinary later if needed). Turnstile is not added yet: a honeypot and a minimum-time check are used. The sections below are the original plan, still accurate apart from these notes.
+
 Goal: a **premium, fast site with a real backend that costs ₦0 / $0 per month** at a single designer's traffic, and that can grow later without a rewrite.
 
 ## Stack

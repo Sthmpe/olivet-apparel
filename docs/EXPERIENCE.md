@@ -1,6 +1,6 @@
 # Experience
 
-There are intentionally no mock-ups. This document describes intent, structure and feel, so the visual design can stay creative during the build instead of being locked to a static picture.
+There are intentionally no mock-ups. *(Built: see the live site. Structure below is current; small differences are noted in DECISIONS.md.)* This document describes intent, structure and feel, so the visual design can stay creative during the build instead of being locked to a static picture.
 
 ## Site map (v1)
 
@@ -50,12 +50,12 @@ Short, warm, one screen on desktop and stepped on mobile:
 
 | Element | Direction |
 |---|---|
-| **Palette** | Warm ivory/bone background, deep ink (near-black) text, *one* accent for the thread: olive gold, a nod to the name "Olivet". Images bring the colour. |
+| **Palette** | **Black and gold** (the client's brand colours, from the logo). Near-black backgrounds, bone text, and gold `#D3952F` (light `#FADA81`, deep `#92560A`) for the thread, accents and buttons. Garments and photos bring the other colours. |
 | **Type** | An elegant high-contrast serif for display (e.g. Cormorant / Playfair-class, free via Google Fonts) paired with a clean, quiet sans for body text. |
 | **Layout** | Generous whitespace, asymmetric editorial grids, and images that break the grid on purpose. |
 | **Motion** | Slow, smooth and physical: thread drawing, gentle parallax on fabric, soft fades. No bouncing, spinning or noisy effects. All motion respects `prefers-reduced-motion`. |
 | **Texture** | A very subtle linen/paper grain on backgrounds, so the site feels like a studio, not a screen. |
-| **Dark mode** | An "evening" mode (ink background, ivory text, gold thread) that is especially good for bridal and evening wear. |
+| **Theme** | The brand is dark by design, so there is one black-and-gold theme and no light mode. |
 
 ## Accessibility and performance targets
 
