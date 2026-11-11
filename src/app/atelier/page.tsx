@@ -50,7 +50,7 @@ export default function AtelierPage() {
           </>
         }
       >
-        Olivet Apparel is a bespoke fashion house built on one idea: that clothes should be made for a person, not a size.
+        Founded by designer {site.designer}, Olivet Apparel is a bespoke fashion house built on one idea: that clothes should be made for a person, not a size.
         We design bridal, celebration, evening and everyday couture, sketched for you, cut for you and finished by hand.
       </PageHero>
 
@@ -70,7 +70,7 @@ export default function AtelierPage() {
             of your event.
           </p>
           <p>
-            We work closely with each client, one at a time, so that what you wear feels like you: your story, your culture,
+            {site.designer} works closely with each client, one at a time, so that what you wear feels like you: your story, your culture,
             your confidence.
           </p>
         </div>
@@ -114,7 +114,12 @@ export default function AtelierPage() {
           <div>
             <p className="kicker">Visit the studio</p>
             <p className="mt-3 font-display text-4xl text-bone">{site.city}</p>
-            <p className="mt-2 text-mute">By appointment only.</p>
+            <p className="mt-2 text-mute">
+              By appointment only ·{" "}
+              <a href={`tel:+${site.whatsapp}`} className="hover:text-gold-light">
+                {site.phoneDisplay}
+              </a>
+            </p>
           </div>
           <div className="flex flex-wrap gap-4">
             <Link href="/book" className="btn-gold">

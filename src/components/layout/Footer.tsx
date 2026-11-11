@@ -48,6 +48,11 @@ export function Footer() {
           <ul className="space-y-3 text-sm text-bone/80">
             <li>{site.city}</li>
             <li>
+              <a className="transition-colors hover:text-gold-light" href={`tel:+${site.whatsapp}`}>
+                {site.phoneDisplay}
+              </a>
+            </li>
+            <li>
               <a className="transition-colors hover:text-gold-light" href={whatsappLink("Hello Olivet Apparel ✨")} target="_blank" rel="noopener noreferrer">
                 WhatsApp
               </a>
@@ -67,7 +72,7 @@ export function Footer() {
       </div>
       <div className="hairline opacity-40" />
       <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-2 px-4 py-6 text-xs tracking-wide text-mute sm:flex-row sm:items-center sm:px-8">
-        <p>© Olivet Apparel. Every piece made by hand, for one person.</p>
+        <p>© Olivet Apparel by {site.designer}. Every piece made by hand, for one person.</p>
         <p className="font-caps tracking-[0.3em] text-gold/70">Follow the thread</p>
       </div>
     </footer>
