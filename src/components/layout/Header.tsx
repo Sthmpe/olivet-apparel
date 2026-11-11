@@ -27,7 +27,7 @@ export function Header() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-        scrolled || open ? "border-b border-line bg-ink/95" : "border-b border-transparent"
+        scrolled || open ? "border-b border-edge bg-page/95" : "border-b border-transparent"
       }`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-8 md:h-20">
@@ -36,7 +36,7 @@ export function Header() {
             <Image src="/brand/mark.png" alt="" width={44} height={35} className="h-6 w-auto md:h-7" priority />
           </span>
           <span className="leading-none">
-            <span className="block font-caps text-[1.05rem] tracking-[0.28em] text-bone">OLIVET</span>
+            <span className="block font-caps text-[1.05rem] tracking-[0.28em] text-fg">OLIVET</span>
             <span className="block font-caps text-[0.55rem] tracking-[0.62em] text-gold">APPAREL</span>
           </span>
         </Link>
@@ -49,7 +49,7 @@ export function Header() {
                 key={item.href}
                 href={item.href}
                 className={`relative text-[0.78rem] uppercase tracking-[0.2em] transition-colors hover:text-gold-light ${
-                  active ? "text-gold-light" : "text-bone/80"
+                  active ? "text-gold-light" : "text-fg/80"
                 }`}
               >
                 {item.label}
@@ -77,7 +77,7 @@ export function Header() {
 
       <div
         id="mobile-menu"
-        className={`fixed inset-x-0 top-16 bottom-0 bg-ink transition-opacity duration-500 md:hidden ${
+        className={`fixed inset-x-0 top-16 bottom-0 bg-page transition-opacity duration-500 md:hidden ${
           open ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
         hidden={!open}
@@ -88,7 +88,7 @@ export function Header() {
               key={item.href}
               href={item.href}
               onClick={() => setOpen(false)}
-              className="font-display text-5xl italic text-bone transition-colors hover:text-gold-light"
+              className="font-display text-5xl italic text-fg transition-colors hover:text-gold-light"
               style={{ transitionDelay: `${i * 40}ms` }}
             >
               {item.label}

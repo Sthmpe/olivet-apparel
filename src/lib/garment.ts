@@ -1,7 +1,7 @@
 import type { Neckline, Silhouette } from "@/content/looks";
 
 /**
- * Deterministic garment geometry for atelier sketches, drawn in a 240 × 340 box
+ * Deterministic garment geometry for illustrationes, drawn in a 240 × 340 box
  * on a dress-form. Pure functions: same inputs always give the same drawing.
  */
 

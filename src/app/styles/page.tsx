@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { PageHero } from "@/components/ui/PageHero";
-import { CollectionBrowser } from "@/components/collections/CollectionBrowser";
+import { StyleBrowser } from "@/components/styles/StyleBrowser";
 
 export const metadata: Metadata = {
   title: "Styles",
@@ -15,7 +15,7 @@ export default function CollectionsPage() {
         Filter by occasion or fabric. Any style can be changed to suit you.
       </PageHero>
       <Suspense fallback={<div className="mx-auto h-[60vh] max-w-7xl px-4 sm:px-8" />}>
-        <CollectionBrowser />
+        <StyleBrowser />
       </Suspense>
     </>
   );

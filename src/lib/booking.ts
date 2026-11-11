@@ -123,3 +123,10 @@ export function briefText(ref: string, b: BookingInput) {
   ];
   return lines.filter(Boolean).join("\n");
 }
+
+/** A wa.me link that opens a chat with a client, with a greeting pre-typed. Local numbers (080...) are treated as Nigerian. */
+export function clientWhatsappLink(phone: string, fullName: string, reference: string) {
+  const digits = phone.replace(/\D/g, "").replace(/^0/, "234");
+  const greeting = `Hello ${fullName.split(" ")[0]}, thank you for booking with Olivet Apparel (${reference})`;
+  return `https://wa.me/${digits}?text=${encodeURIComponent(greeting)}`;
+}

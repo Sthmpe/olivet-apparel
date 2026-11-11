@@ -33,40 +33,40 @@ export default function AboutPage() {
       </PageHero>
 
       <section className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-10 sm:px-8 md:grid-cols-2 md:py-16">
-        <div className="on-dark art-well mx-auto w-full max-w-md rounded-[2rem] border border-line p-10">
+        <div className="on-dark art-well mx-auto w-full max-w-md rounded-[2rem] border border-edge p-10">
           <Image src="/brand/mark.png" alt="" width={900} height={719} className="h-auto w-full" />
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
           {values.map((v) => (
-            <div key={v.title} className="rounded-[1.5rem] border border-line bg-ink-3 p-6">
-              <h2 className="font-display text-2xl text-bone">{v.title}</h2>
-              <p className="mt-2 text-mute">{v.body}</p>
+            <div key={v.title} className="rounded-[1.5rem] border border-edge bg-card p-6">
+              <h2 className="font-display text-2xl text-fg">{v.title}</h2>
+              <p className="mt-2 text-muted">{v.body}</p>
             </div>
           ))}
         </div>
       </section>
 
       <section className="mx-auto max-w-4xl px-4 py-12 sm:px-8 md:py-20">
-        <h2 className="font-display text-4xl font-light text-bone md:text-5xl">Common questions</h2>
-        <div className="mt-8 divide-y divide-line border-y border-line">
+        <h2 className="font-display text-4xl font-light text-fg md:text-5xl">Common questions</h2>
+        <div className="mt-8 divide-y divide-edge border-y border-edge">
           {faqs.map((f) => (
             <details key={f.q} className="group py-5">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-6 font-display text-2xl text-bone marker:hidden">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-6 font-display text-2xl text-fg marker:hidden">
                 {f.q}
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line text-gold transition-transform duration-500 group-open:rotate-45">+</span>
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-edge text-gold transition-transform duration-500 group-open:rotate-45">+</span>
               </summary>
-              <p className="mt-3 max-w-2xl leading-relaxed text-mute">{f.a}</p>
+              <p className="mt-3 max-w-2xl leading-relaxed text-muted">{f.a}</p>
             </details>
           ))}
         </div>
       </section>
 
-      <section className="border-t border-line bg-ink-2">
+      <section className="border-t border-edge bg-panel">
         <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 px-4 py-14 sm:px-8 md:flex-row md:items-center">
           <div>
             <p className="kicker">Studio</p>
-            <p className="mt-3 font-display text-4xl text-bone">{site.city}</p>
-            <p className="mt-2 text-mute">
+            <p className="mt-3 font-display text-4xl text-fg">{site.city}</p>
+            <p className="mt-2 text-muted">
               By appointment.{" "}
               <a href={`tel:+${site.whatsapp}`} className="text-gold hover:underline">
                 {site.phoneDisplay}

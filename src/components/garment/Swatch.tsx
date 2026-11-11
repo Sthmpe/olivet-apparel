@@ -20,7 +20,7 @@ export function Swatch({ fabric, className = "" }: { fabric: Fabric; className?:
       <rect width="100" height="100" fill={`url(#${id})`} />
       <rect width="100" height="100" fill={`url(#${id}s)`} />
       {/* pinked edge */}
-      <path d="M0 100 L5 95 L10 100 L15 95 L20 100 L25 95 L30 100 L35 95 L40 100 L45 95 L50 100 L55 95 L60 100 L65 95 L70 100 L75 95 L80 100 L85 95 L90 100 L95 95 L100 100" fill="var(--ink)" />
+      <path d="M0 100 L5 95 L10 100 L15 95 L20 100 L25 95 L30 100 L35 95 L40 100 L45 95 L50 100 L55 95 L60 100 L65 95 L70 100 L75 95 L80 100 L85 95 L90 100 L95 95 L100 100" fill="var(--page)" />
     </svg>
   );
 }

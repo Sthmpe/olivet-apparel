@@ -8,7 +8,7 @@ import { FabricPattern } from "./FabricPattern";
 
 const clamp = (v: number) => Math.min(1, Math.max(0, v));
 
-/** Progress (0 to 1) at which each stage of the Fitting Room is fully shown. */
+/** Progress (0 to 1) at which each stage of the sketch-to-finished slider is fully shown. */
 export const STAGE_AT = { sketch: 0.2, fabric: 0.42, fitting: 0.62, final: 1 } as const;
 
 type Props = {
@@ -17,11 +17,9 @@ type Props = {
   progress?: number;
   className?: string;
   title?: string;
-  /** animate the sketch line drawing in on mount (CSS) */
-  animateDraw?: boolean;
 };
 
-export function GarmentArt({ look, progress = 1, className, title, animateDraw }: Props) {
+export function GarmentArt({ look, progress = 1, className, title }: Props) {
   const uid = useId().replace(/[^a-zA-Z0-9]/g, "");
   const g = garmentGeometry(look.silhouette, look.neckline, look.train);
   const fabric = getFabric(look.fabrics[0]);
@@ -35,7 +33,7 @@ export function GarmentArt({ look, progress = 1, className, title, animateDraw }
   const pieces = g.ribbon ? [...g.pieces, g.ribbon] : g.pieces;
 
   return (
-    <svg viewBox={VIEWBOX} className={className} role="img" aria-label={title ?? `${look.title}, atelier sketch`}>
+    <svg viewBox={VIEWBOX} className={className} role="img" aria-label={title ?? `${look.title}, illustration`}>
       <defs>
         <linearGradient id={`gold${uid}`} x1="0" y1="0" x2="1" y2="1">
           <stop offset="0" stopColor="#fada81" />
@@ -95,10 +93,9 @@ export function GarmentArt({ look, progress = 1, className, title, animateDraw }
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className={animateDraw ? "garment-draw" : undefined}
       >
         {pieces.map((d, i) => (
-          <path key={i} d={d} pathLength={1} strokeDasharray="1" strokeDashoffset={animateDraw ? undefined : 1 - draw} />
+          <path key={i} d={d} pathLength={1} strokeDasharray="1" strokeDashoffset={1 - draw} />
         ))}
         <g opacity={draw * (1 - finalO)} strokeWidth="0.8">
           {g.lines.map((d, i) => (

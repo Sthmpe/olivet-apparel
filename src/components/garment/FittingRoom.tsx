@@ -20,10 +20,10 @@ function stageOf(p: number): Stage {
 }
 
 /**
- * The Fitting Room: drag from the first sketch to the finished garment.
+ * Sketch-to-finished slider: drag from the first sketch to the finished garment.
  * Uses real photos per stage when the look has them; otherwise the code-drawn sketch.
  */
-export function FittingRoom({ look, autoplay = true, compact = false }: { look: Look; autoplay?: boolean; compact?: boolean }) {
+export function FittingRoom({ look, autoplay = true }: { look: Look; autoplay?: boolean }) {
   const [p, setP] = useState(autoplay ? 0 : 1);
   const touched = useRef(false);
   const box = useRef<HTMLDivElement>(null);
@@ -70,7 +70,7 @@ export function FittingRoom({ look, autoplay = true, compact = false }: { look: 
 
   return (
     <div ref={box} className="flex flex-col items-center">
-      <div className={`on-dark art-well relative w-full rounded-[2rem] border border-line p-6 ${compact ? "max-w-sm" : "max-w-md"}`}>
+      <div className="on-dark art-well relative w-full max-w-md rounded-[2rem] border border-edge p-6">
         {photos.length ? (
           <div className="relative aspect-[24/34] w-full overflow-hidden rounded-[2rem]">
             {STAGES.map((s) => {
@@ -113,7 +113,7 @@ export function FittingRoom({ look, autoplay = true, compact = false }: { look: 
               type="button"
               onClick={() => go(STAGE_AT[s.id])}
               className={`font-caps text-[0.62rem] tracking-[0.25em] transition-colors ${
-                stage === s.id ? "text-gold-light" : "text-mute hover:text-bone"
+                stage === s.id ? "text-gold-light" : "text-muted hover:text-fg"
               }`}
               aria-pressed={stage === s.id}
             >
@@ -121,7 +121,7 @@ export function FittingRoom({ look, autoplay = true, compact = false }: { look: 
             </button>
           ))}
         </div>
-        <p className="mt-5 min-h-[3rem] text-center font-display text-xl text-bone" aria-live="polite">
+        <p className="mt-5 min-h-[3rem] text-center font-display text-xl text-fg" aria-live="polite">
           {current.note}
         </p>
       </div>

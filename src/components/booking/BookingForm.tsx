@@ -12,15 +12,15 @@ import { GarmentArt } from "@/components/garment/GarmentArt";
 import { WhatsAppIcon } from "@/components/layout/WhatsAppFab";
 
 const input =
-  "w-full rounded-xl border border-line bg-ink-3 px-4 py-3.5 text-bone placeholder:text-mute/60 transition-colors focus:border-gold focus:outline-none";
-const label = "mb-2 block text-[0.72rem] uppercase tracking-[0.18em] text-bone/80";
+  "w-full rounded-xl border border-edge bg-card px-4 py-3.5 text-fg placeholder:text-muted/60 transition-colors focus:border-gold focus:outline-none";
+const label = "mb-2 block text-[0.72rem] uppercase tracking-[0.18em] text-fg/80";
 
 function Section({ n, title, children }: { n: string; title: string; children: ReactNode }) {
   return (
-    <fieldset className="border-t border-line pt-8">
+    <fieldset className="border-t border-edge pt-8">
       <legend className="flex items-baseline gap-4">
         <span className="gold-text font-display text-3xl italic">{n}</span>
-        <span className="font-display text-3xl text-bone">{title}</span>
+        <span className="font-display text-3xl text-fg">{title}</span>
       </legend>
       <div className="mt-6 space-y-5">{children}</div>
     </fieldset>
@@ -79,11 +79,11 @@ export function BookingForm() {
       <div className="rise mt-14 grid items-center gap-12 md:grid-cols-[1fr_1fr]">
         <div>
           <p className="kicker">Request received</p>
-          <h2 className="mt-4 font-display text-5xl font-light text-bone md:text-6xl">
+          <h2 className="mt-4 font-display text-5xl font-light text-fg md:text-6xl">
             Thank you{name ? `, ${name.split(" ")[0]}` : ""}. <em className="gold-text">We got your request.</em>
           </h2>
           {state.delivered ? (
-            <p className="mt-6 max-w-md text-mute">
+            <p className="mt-6 max-w-md text-muted">
               We will contact you within one working day. For a faster reply, send your request on WhatsApp too.
             </p>
           ) : (
@@ -95,7 +95,7 @@ export function BookingForm() {
             <a href={whatsappLink(state.brief)} target="_blank" rel="noopener noreferrer" className="btn-gold">
               <WhatsAppIcon className="h-4 w-4" /> Send on WhatsApp
             </a>
-            <Link href="/collections" className="btn-ghost">
+            <Link href="/styles" className="btn-ghost">
               See more styles
             </Link>
           </div>
@@ -127,8 +127,8 @@ export function BookingForm() {
                   <span className="art-well flex h-10 w-10 items-center justify-center overflow-hidden rounded-full">
                     <GarmentArt look={l} className="h-9 w-auto" />
                   </span>
-                  <span className="text-sm text-bone">{l.title}</span>
-                  <button type="button" onClick={() => toggle(l.slug)} className="ml-1 text-mute hover:text-gold-light" aria-label={`Remove ${l.title}`}>
+                  <span className="text-sm text-fg">{l.title}</span>
+                  <button type="button" onClick={() => toggle(l.slug)} className="ml-1 text-muted hover:text-gold-light" aria-label={`Remove ${l.title}`}>
                     ✕
                   </button>
                 </li>
@@ -148,12 +148,12 @@ export function BookingForm() {
                     type="button"
                     onClick={() => toggle(l.slug)}
                     aria-pressed={on}
-                    className={`flex w-28 shrink-0 flex-col items-center rounded-2xl border p-2 transition-colors ${on ? "border-gold bg-gold/10" : "border-line hover:border-gold/50"}`}
+                    className={`flex w-28 shrink-0 flex-col items-center rounded-2xl border p-2 transition-colors ${on ? "border-gold bg-gold/10" : "border-edge hover:border-gold/50"}`}
                   >
                     <span className="on-dark art-well flex w-full justify-center rounded-xl py-1">
                       <GarmentArt look={l} className="h-28 w-auto" />
                     </span>
-                    <span className="mt-1 text-center text-xs leading-tight text-bone/85">{l.title}</span>
+                    <span className="mt-1 text-center text-xs leading-tight text-fg/85">{l.title}</span>
                   </button>
                 );
               })}
@@ -161,9 +161,9 @@ export function BookingForm() {
           )}
           <div>
             <span className={label}>Inspiration photos (optional, up to 3)</span>
-            <label className="flex cursor-pointer items-center gap-4 rounded-xl border border-dashed border-line px-4 py-4 transition-colors hover:border-gold/60">
-              <span className="flex h-10 w-10 items-center justify-center rounded-full border border-line text-gold">+</span>
-              <span className="text-sm text-mute">Add photos of styles or fabrics you like</span>
+            <label className="flex cursor-pointer items-center gap-4 rounded-xl border border-dashed border-edge px-4 py-4 transition-colors hover:border-gold/60">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full border border-edge text-gold">+</span>
+              <span className="text-sm text-muted">Add photos of styles or fabrics you like</span>
               <input ref={fileRef} type="file" name="inspiration" accept="image/*" multiple className="sr-only" onChange={(e) => onFiles(e.target.files)} />
             </label>
             {previews.length > 0 && (
@@ -203,7 +203,7 @@ export function BookingForm() {
             </div>
           </div>
           {weeks !== null && (
-            <p className={`rounded-xl border px-4 py-3 text-sm ${weeks >= lead ? "border-line text-bone/85" : "border-gold/50 bg-gold/5 text-gold-light"}`} aria-live="polite">
+            <p className={`rounded-xl border px-4 py-3 text-sm ${weeks >= lead ? "border-edge text-fg/85" : "border-gold/50 bg-gold/5 text-gold-light"}`} aria-live="polite">
               {weeks < 0
                 ? "That date has passed. Please pick a future date."
                 : weeks >= lead
@@ -218,7 +218,7 @@ export function BookingForm() {
                 ["pickup", "I'll collect from the studio"],
                 ["delivery", "Please deliver to me"],
               ].map(([v, l], i) => (
-                <label key={v} className="flex cursor-pointer items-center gap-2 rounded-full border border-line px-4 py-2.5 text-sm has-[:checked]:border-gold has-[:checked]:text-gold-light">
+                <label key={v} className="flex cursor-pointer items-center gap-2 rounded-full border border-edge px-4 py-2.5 text-sm has-[:checked]:border-gold has-[:checked]:text-gold-light">
                   <input type="radio" name="delivery" value={v} defaultChecked={i === 0} className="accent-[#d3952f]" />
                   {l}
                 </label>
@@ -230,10 +230,10 @@ export function BookingForm() {
         <Section n="3" title="Measurements">
           <div className="grid gap-3 sm:grid-cols-3">
             {FITS.map((f) => (
-              <label key={f.value} className="cursor-pointer rounded-2xl border border-line p-4 transition-colors has-[:checked]:border-gold has-[:checked]:bg-gold/5">
+              <label key={f.value} className="cursor-pointer rounded-2xl border border-edge p-4 transition-colors has-[:checked]:border-gold has-[:checked]:bg-gold/5">
                 <input type="radio" name="fit" value={f.value} checked={fit === f.value} onChange={() => setFit(f.value)} className="sr-only" />
-                <span className="block font-display text-xl text-bone">{f.label}</span>
-                <span className="mt-1 block text-xs text-mute">{f.hint}</span>
+                <span className="block font-display text-xl text-fg">{f.label}</span>
+                <span className="mt-1 block text-xs text-muted">{f.hint}</span>
               </label>
             ))}
           </div>
@@ -254,7 +254,7 @@ export function BookingForm() {
                   <input id={`m_${k}`} name={`m_${k}`} inputMode="decimal" placeholder="inches" className={input} />
                 </div>
               ))}
-              <p className="col-span-full text-xs text-mute">Not sure how to measure? Leave it, and we&apos;ll guide you on a quick video call.</p>
+              <p className="col-span-full text-xs text-muted">Not sure how to measure? Leave it, and we&apos;ll guide you on a quick video call.</p>
             </div>
           )}
           <div>
@@ -297,7 +297,7 @@ export function BookingForm() {
             <span className={label}>Best way to reach you</span>
             <div className="flex flex-wrap gap-3">
               {CONTACTS.map((c, i) => (
-                <label key={c.value} className="flex cursor-pointer items-center gap-2 rounded-full border border-line px-4 py-2.5 text-sm has-[:checked]:border-gold has-[:checked]:text-gold-light">
+                <label key={c.value} className="flex cursor-pointer items-center gap-2 rounded-full border border-edge px-4 py-2.5 text-sm has-[:checked]:border-gold has-[:checked]:text-gold-light">
                   <input type="radio" name="preferredContact" value={c.value} defaultChecked={i === 0} className="accent-[#d3952f]" />
                   {c.label}
                 </label>
@@ -317,11 +317,11 @@ export function BookingForm() {
             {state.message}
           </p>
         )}
-        <div className="flex flex-wrap items-center gap-5 border-t border-line pt-8">
+        <div className="flex flex-wrap items-center gap-5 border-t border-edge pt-8">
           <button type="submit" className="btn-gold disabled:opacity-60" disabled={pending}>
             {pending ? "Sending…" : "Send my request"}
           </button>
-          <p className="text-xs text-mute">No payment now. We reply within one working day.</p>
+          <p className="text-xs text-muted">No payment now. We reply within one working day.</p>
         </div>
       </div>
 
@@ -355,13 +355,13 @@ function Ticket({
   return (
     <div className="relative mx-auto max-w-sm">
       <span className="absolute -top-10 left-1/2 h-10 w-px -translate-x-1/2 bg-gradient-to-b from-transparent to-gold" aria-hidden="true" />
-      <div className="relative overflow-hidden rounded-t-[999px] rounded-b-[1.75rem] border border-gold/50 bg-ink-3 shadow-xl">
-        <span className="absolute left-1/2 top-5 z-10 h-4 w-4 -translate-x-1/2 rounded-full border border-gold bg-ink" aria-hidden="true" />
+      <div className="relative overflow-hidden rounded-t-[999px] rounded-b-[1.75rem] border border-gold/50 bg-card shadow-xl">
+        <span className="absolute left-1/2 top-5 z-10 h-4 w-4 -translate-x-1/2 rounded-full border border-gold bg-page" aria-hidden="true" />
         <div className="on-dark art-well flex aspect-[4/3] items-end justify-center pt-10">
           {hero ? (
             <GarmentArt key={hero.slug} look={hero} className="h-[92%] w-auto" />
           ) : (
-            <p className="mb-10 px-10 text-center font-display text-xl italic text-mute">Your style will appear here</p>
+            <p className="mb-10 px-10 text-center font-display text-xl italic text-muted">Your style will appear here</p>
           )}
         </div>
         <div className="space-y-4 border-t border-dashed border-gold/40 p-6">
@@ -372,13 +372,13 @@ function Ticket({
             ["Date", date ? new Date(date + "T12:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) : "…"],
             ["Style", looks.length ? looks.map((l) => l.title).join(", ") : "Custom design"],
           ].map(([k, v]) => (
-            <div key={k} className="flex items-baseline justify-between gap-4 border-b border-line pb-3">
-              <span className="text-[0.65rem] uppercase tracking-[0.2em] text-mute">{k}</span>
-              <span className="text-right font-display text-xl text-bone">{v}</span>
+            <div key={k} className="flex items-baseline justify-between gap-4 border-b border-edge pb-3">
+              <span className="text-[0.65rem] uppercase tracking-[0.2em] text-muted">{k}</span>
+              <span className="text-right font-display text-xl text-fg">{v}</span>
             </div>
           ))}
           <div className="flex items-center justify-between pt-1">
-            <span className="text-[0.65rem] uppercase tracking-[0.2em] text-mute">No.</span>
+            <span className="text-[0.65rem] uppercase tracking-[0.2em] text-muted">No.</span>
             <span className="font-caps tracking-[0.2em] text-gold-light">{reference ?? "OA-·····"}</span>
           </div>
         </div>

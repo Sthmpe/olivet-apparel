@@ -1,6 +1,6 @@
 /**
  * Brand + contact settings. Contact details can be overridden with environment
- * variables on Vercel without touching code (see README → Configuration).
+ * variables on Vercel without touching code (see Configuration in the README).
  */
 export const site = {
   name: "Olivet Apparel",
@@ -23,7 +23,7 @@ export function whatsappLink(text: string) {
 }
 
 export const nav = [
-  { href: "/collections", label: "Styles" },
+  { href: "/styles", label: "Styles" },
   { href: "/style-finder", label: "Find my style" },
-  { href: "/atelier", label: "About" },
+  { href: "/about", label: "About" },
 ] as const;

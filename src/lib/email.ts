@@ -1,7 +1,7 @@
 import "server-only";
 import { getLook } from "@/content/looks";
 import { site, whatsappLink } from "@/content/site";
-import { FITS, OCCASIONS, labelFor, type BookingInput } from "./booking";
+import { FITS, OCCASIONS, clientWhatsappLink, labelFor, type BookingInput } from "./booking";
 
 /**
  * Email through Resend's HTTP API (free tier: 3,000 emails / month).
@@ -45,8 +45,7 @@ function row(k: string, v: string | null | undefined) {
 
 export async function sendBookingEmails(ref: string, b: BookingInput, brief: string, attachments: Attachment[]) {
   const looks = b.looks.map((s) => getLook(s)?.title ?? s).join(", ");
-  const phoneDigits = b.phone.replace(/\D/g, "").replace(/^0/, "234");
-  const replyWa = `https://wa.me/${phoneDigits}?text=${encodeURIComponent(`Hello ${b.fullName.split(" ")[0]}, thank you for booking with Olivet Apparel (${ref})`)}`;
+  const replyWa = clientWhatsappLink(b.phone, b.fullName, ref);
 
   const designerHtml = shell(`
     <h1 style="font-weight:normal;font-size:30px;margin:0">New booking: ${esc(b.fullName)}</h1>
@@ -80,7 +79,7 @@ export async function sendBookingEmails(ref: string, b: BookingInput, brief: str
       subject: `We've received your request · ${ref}`,
       html: shell(`
         <h1 style="font-weight:normal;font-size:30px;margin:0">Thank you, ${esc(b.fullName.split(" ")[0])}.</h1>
-        <p style="font-size:16px;line-height:1.6;color:#d8d0c2">Your request has reached the atelier. We'll be in touch within one working day to plan your consultation.</p>
+        <p style="font-size:16px;line-height:1.6;color:#d8d0c2">We have received your request. We'll be in touch within one working day to plan your consultation.</p>
         <p style="font-size:14px;color:#a69e90">Your reference: <strong style="color:#fada81">${esc(ref)}</strong></p>
         ${looks ? `<p style="font-size:14px;color:#a69e90">Looks you chose: ${esc(looks)}</p>` : ""}
         <p><a href="${whatsappLink(`Hello Olivet Apparel my booking reference is ${ref}.`)}" style="color:#fada81">Message us on WhatsApp</a></p>`),

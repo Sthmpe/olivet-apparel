@@ -1,25 +1,21 @@
 # Olivet Apparel: Agent Instructions
 
-This project is a portfolio and booking site for the fashion designer behind Olivet Apparel. Read `docs/VISION.md`, `docs/EXPERIENCE.md`, `docs/ARCHITECTURE.md`, `docs/ROADMAP.md` and `docs/DECISIONS.md` before writing code. They are the source of truth.
+A portfolio and booking site for the fashion designer behind Olivet Apparel. Read `README.md`, `docs/ARCHITECTURE.md`, `docs/DECISIONS.md` and `docs/ROADMAP.md` before writing code.
 
 ## Rules
 
-0. Keep copy short and plain. A first-time visitor must understand in five seconds that this is a fashion designer who makes custom outfits you can book. No em dashes in site copy.
-
-1. Booking is the #1 job. Never ship a change that makes booking slower or less reliable.
-2. Clothes first: UI must make the garments look better, never compete with them.
-3. "Follow the Thread" is the only signature effect. Keep everything else restrained.
-4. No generic dashboard, template or chatbot styling. Premium, editorial and calm. Brand colours are **black and gold**, taken from the logo in `public/brand/`. The site follows the device theme: black and gold in dark mode, ivory and deep gold in light mode (tokens in `src/app/globals.css`).
-5. Mobile-first. Pages must be fast on mobile data (Lighthouse ≥ 90 mobile).
-6. Respect `prefers-reduced-motion`; booking and browsing must work without JS.
-7. Use SQL (PostgreSQL) with plain, parameterised queries (tagged templates in `src/lib/db.ts`). Never build queries by string concatenation.
-8. A booking is saved before any email is sent. Email failure must never lose a lead.
-9. All secrets stay server-side. Never expose DB, Resend, Cloudinary or admin secrets to the browser.
-10. The AI try-on must go through the `TryOnProvider` interface and our server proxy. Don't store visitor photos unless they're attached to a booking.
-11. Stay free-tier friendly. Don't add paid services without approval.
-12. Don't add dependencies unless the current milestone needs them.
-13. Don't build features outside the current ROADMAP milestone.
-14. Every image needs meaningful alt text.
+1. Keep copy short and plain. A first-time visitor must understand in five seconds that this is a fashion designer who makes custom outfits you can book. No em dashes in site copy.
+2. Booking is the first job. Never ship a change that makes booking slower or less reliable.
+3. A booking is saved before any email is sent. Email failure must never lose a lead.
+4. Brand colours are black and gold. Use the semantic tokens in `src/app/globals.css` (`bg-page`, `bg-card`, `text-fg`, `text-muted`, `border-edge`, `text-gold`); do not hard-code theme colours in components. Both light and dark mode must look right.
+5. Restrained motion only. No texture overlays, shimmer or scroll-linked fades. Respect `prefers-reduced-motion`.
+6. Mobile first. No horizontal scrolling at phone width.
+7. Use plain, parameterised SQL through `src/lib/db.ts`.
+8. Keep secrets on the server. Never expose database, email or studio secrets to the browser.
+9. AI try-on goes through `src/lib/tryon.ts` and the server route. Do not store visitor photos.
+10. Stay within free tiers and do not add dependencies without a clear need.
+11. Every image needs meaningful alt text.
+12. Run `npm run check` before committing. Add or update tests in `tests/` when changing logic in `src/lib`.
 
 <!-- BEGIN:nextjs-agent-rules -->
 

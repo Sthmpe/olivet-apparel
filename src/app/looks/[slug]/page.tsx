@@ -50,16 +50,16 @@ export default async function LookPage({ params }: PageProps<"/looks/[slug]">) {
     <>
       <section className="relative overflow-hidden pt-28 md:pt-32">
                 <div className="relative mx-auto max-w-7xl px-4 sm:px-8">
-          <nav aria-label="Breadcrumb" className="text-xs tracking-wide text-mute">
-            <Link href="/collections" className="hover:text-gold-light">
+          <nav aria-label="Breadcrumb" className="text-xs tracking-wide text-muted">
+            <Link href="/styles" className="hover:text-gold-light">
               Styles
             </Link>
             <span className="mx-2 text-gold/50">/</span>
-            <Link href={`/collections/${col.slug}`} className="hover:text-gold-light">
+            <Link href={`/styles/${col.slug}`} className="hover:text-gold-light">
               {col.title}
             </Link>
             <span className="mx-2 text-gold/50">/</span>
-            <span className="text-bone/80">{look.title}</span>
+            <span className="text-fg/80">{look.title}</span>
           </nav>
 
           <div className="mt-8 grid items-start gap-14 pb-24 md:grid-cols-[1fr_1fr] md:gap-20">
@@ -69,8 +69,8 @@ export default async function LookPage({ params }: PageProps<"/looks/[slug]">) {
 
             <div>
               <p className="kicker">{col.title}</p>
-              <h1 className="mt-4 font-display text-6xl font-light leading-none text-bone md:text-7xl">{look.title}</h1>
-              <p className="mt-8 text-lg leading-relaxed text-mute">{look.story}</p>
+              <h1 className="mt-4 font-display text-6xl font-light leading-none text-fg md:text-7xl">{look.title}</h1>
+              <p className="mt-8 text-lg leading-relaxed text-muted">{look.story}</p>
 
               <div className="mt-10 flex flex-wrap gap-3">
                 <Link href={`/book?look=${look.slug}`} className="btn-gold">
@@ -82,16 +82,16 @@ export default async function LookPage({ params }: PageProps<"/looks/[slug]">) {
                 href={whatsappLink(`Hello Olivet Apparel, I am interested in "${look.title}" (${col.title}). Could you tell me more?`)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-5 inline-flex items-center gap-2 text-sm text-mute transition-colors hover:text-gold-light"
+                className="mt-5 inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-gold-light"
               >
                 <WhatsAppIcon className="h-4 w-4" /> Ask about this style on WhatsApp
               </a>
 
-              <dl className="mt-12 divide-y divide-line border-y border-line">
+              <dl className="mt-12 divide-y divide-edge border-y border-edge">
                 {specs.map(([k, v]) => (
                   <div key={k} className="grid grid-cols-[8rem_1fr] gap-4 py-4 text-sm">
                     <dt className="font-caps text-[0.62rem] tracking-[0.25em] text-gold">{k}</dt>
-                    <dd className="text-bone/90">{v}</dd>
+                    <dd className="text-fg/90">{v}</dd>
                   </div>
                 ))}
               </dl>
@@ -99,16 +99,16 @@ export default async function LookPage({ params }: PageProps<"/looks/[slug]">) {
               <h2 className="mt-12 kicker">Details</h2>
               <ul className="mt-5 space-y-3">
                 {look.details.map((d) => (
-                  <li key={d} className="flex items-start gap-3 text-bone/85">
+                  <li key={d} className="flex items-start gap-3 text-fg/85">
                     <span className="mt-2.5 h-px w-5 shrink-0 bg-gold" />
                     {d}
                   </li>
                 ))}
               </ul>
 
-              <div className="mt-12 rounded-[1.5rem] border border-line bg-ink-3 p-6">
-                <p className="font-display text-2xl text-bone">Make it yours</p>
-                <p className="mt-2 text-sm leading-relaxed text-mute">
+              <div className="mt-12 rounded-[1.5rem] border border-edge bg-card p-6">
+                <p className="font-display text-2xl text-fg">Make it yours</p>
+                <p className="mt-2 text-sm leading-relaxed text-muted">
                   Want a different colour, sleeve or length? Tell us when you book.
                 </p>
               </div>
@@ -117,7 +117,7 @@ export default async function LookPage({ params }: PageProps<"/looks/[slug]">) {
         </div>
       </section>
 
-      <section className="border-t border-line bg-ink-2/60">
+      <section className="border-t border-edge bg-panel/60">
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-8">
           <p className="kicker">You may also like</p>
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

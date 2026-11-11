@@ -5,19 +5,19 @@ import { collections } from "@/content/looks";
 
 export function Footer() {
   return (
-    <footer className="on-dark relative border-t border-line bg-ink-2">
+    <footer className="on-dark relative border-t border-edge bg-panel">
       <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-8 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div>
           <Image src="/brand/lockup.png" alt="Olivet Apparel" width={180} height={138} className="h-auto w-40" />
-          <p className="mt-6 max-w-xs text-sm leading-relaxed text-mute">{site.description}</p>
+          <p className="mt-6 max-w-xs text-sm leading-relaxed text-muted">{site.description}</p>
         </div>
 
         <div>
           <p className="kicker mb-5">Styles</p>
-          <ul className="space-y-3 text-sm text-bone/80">
+          <ul className="space-y-3 text-sm text-fg/80">
             {collections.map((c) => (
               <li key={c.slug}>
-                <Link className="transition-colors hover:text-gold-light" href={`/collections/${c.slug}`}>
+                <Link className="transition-colors hover:text-gold-light" href={`/styles/${c.slug}`}>
                   {c.title}
                 </Link>
               </li>
@@ -27,7 +27,7 @@ export function Footer() {
 
         <div>
           <p className="kicker mb-5">Explore</p>
-          <ul className="space-y-3 text-sm text-bone/80">
+          <ul className="space-y-3 text-sm text-fg/80">
             {nav.map((n) => (
               <li key={n.href}>
                 <Link className="transition-colors hover:text-gold-light" href={n.href}>
@@ -45,7 +45,7 @@ export function Footer() {
 
         <div>
           <p className="kicker mb-5">Studio</p>
-          <ul className="space-y-3 text-sm text-bone/80">
+          <ul className="space-y-3 text-sm text-fg/80">
             <li>{site.city}</li>
             <li>
               <a className="transition-colors hover:text-gold-light" href={`tel:+${site.whatsapp}`}>
@@ -71,7 +71,7 @@ export function Footer() {
         </div>
       </div>
       <div className="hairline opacity-40" />
-      <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-2 px-4 py-6 text-xs tracking-wide text-mute sm:flex-row sm:items-center sm:px-8">
+      <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-2 px-4 py-6 text-xs tracking-wide text-muted sm:flex-row sm:items-center sm:px-8">
         <p>© Olivet Apparel by {site.designer}</p>
         <p>Custom outfits, made to fit you.</p>
       </div>

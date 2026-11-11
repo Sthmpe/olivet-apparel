@@ -1,6 +1,6 @@
 -- Olivet Apparel: database schema (PostgreSQL)
 --
--- The app creates this automatically on the first booking (src/lib/db.ts → ensureSchema),
+-- The app creates this automatically on the first booking (ensureSchema in src/lib/db.ts),
 -- so you never need to run it by hand. It's kept here as the reference.
 --
 -- Portfolio content (looks, collections, fabrics) lives in src/content/*.ts for v1.
@@ -21,7 +21,7 @@ create table if not exists bookings (
   budget_range      text,
   notes             text,
   look_slugs        text[] not null default '{}',  -- looks the client chose
-  style_finder      text,                          -- "occasion:bridal|shape:flowing|…"
+  style_finder      text,                          -- e.g. "occasion:bridal|shape:flowing"
   attachment_count  int not null default 0,        -- inspiration photos (sent by email, not stored)
   status            text not null default 'new',   -- new | contacted | fitting_booked | in_progress | delivered | cancelled
   admin_notes       text,

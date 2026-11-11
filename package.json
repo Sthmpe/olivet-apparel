@@ -1,12 +1,19 @@
 {
   "name": "olivet-apparel",
   "version": "0.1.0",
+  "description": "Portfolio and booking website for Olivet Apparel, a custom fashion house in Lagos.",
   "private": true,
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "next typegen && tsc --noEmit",
+    "test": "vitest run",
+    "check": "npm run lint && npm run typecheck && npm run test"
   },
   "dependencies": {
     "@gradio/client": "^2.7.2",
@@ -17,12 +24,13 @@
   },
   "devDependencies": {
     "@tailwindcss/turbopack": "4.3.3",
-    "@types/node": "^20",
+    "@types/node": "^22.20.5",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.6",
     "tailwindcss": "4.3.3",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^5.1.0"
   }
 }

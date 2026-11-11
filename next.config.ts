@@ -17,6 +17,17 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  async redirects() {
+    // Earlier URL names, kept working for links already shared.
+    return [
+      { source: "/collections", destination: "/styles", permanent: true },
+      { source: "/collections/gilded-vows", destination: "/styles/bridal", permanent: true },
+      { source: "/collections/owambe-royale", destination: "/styles/owambe", permanent: true },
+      { source: "/collections/after-dark", destination: "/styles/evening", permanent: true },
+      { source: "/collections/everyday-couture", destination: "/styles/everyday", permanent: true },
+      { source: "/atelier", destination: "/about", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

@@ -157,7 +157,7 @@ export function ThreadStage({ children, className = "" }: { children: ReactNode;
           />
           {geo.pts.map((pt, i) => (
             <g key={i} style={{ transition: "opacity .6s" }} opacity={i <= reached ? 1 : 0.25}>
-              <circle cx={pt.x} cy={pt.y} r="5.5" fill="var(--ink)" stroke="var(--gold)" strokeWidth="1.2" />
+              <circle cx={pt.x} cy={pt.y} r="5.5" fill="var(--page)" stroke="var(--gold)" strokeWidth="1.2" />
               <circle cx={pt.x} cy={pt.y} r="1.8" fill="var(--gold)" opacity={i <= reached ? 1 : 0.4} />
             </g>
           ))}

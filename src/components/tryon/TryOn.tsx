@@ -11,7 +11,7 @@ type State =
   | { s: "error"; message: string; preview?: string };
 
 /**
- * "Wear it": virtual try-on. Sends the visitor's photo to our own server route,
+ * AI try-on. Sends the visitor's photo to our own server route,
  * which forwards it to an open-source try-on model. Photos are not stored.
  */
 export function TryOn({ slug, title, ready }: { slug: string; title: string; ready: boolean }) {
@@ -56,14 +56,14 @@ export function TryOn({ slug, title, ready }: { slug: string; title: string; rea
 
       <dialog
         ref={dialog}
-        className="m-auto w-[min(36rem,calc(100vw-2rem))] rounded-[2rem] border border-line bg-ink-2 p-0 text-bone backdrop:bg-black/80"
+        className="m-auto w-[min(36rem,calc(100vw-2rem))] rounded-[2rem] border border-edge bg-panel p-0 text-fg backdrop:bg-black/80"
         aria-labelledby="tryon-title"
       >
         <div className="relative p-7 sm:p-9">
           <button
             type="button"
             onClick={() => dialog.current?.close()}
-            className="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full border border-line text-mute hover:border-gold hover:text-gold-light"
+            className="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full border border-edge text-muted hover:border-gold hover:text-gold-light"
             aria-label="Close"
           >
             ✕
@@ -74,7 +74,7 @@ export function TryOn({ slug, title, ready }: { slug: string; title: string; rea
           </h2>
 
           {!ready ? (
-            <div className="mt-6 space-y-4 text-mute">
+            <div className="mt-6 space-y-4 text-muted">
               <p>AI try-on for {title} is coming soon. You will be able to upload a photo and see this style on yourself.</p>
               <p>For now, book this style and we will show you how it will look on you.</p>
               <Link href={`/book?look=${slug}`} className="btn-gold mt-2">
@@ -83,7 +83,7 @@ export function TryOn({ slug, title, ready }: { slug: string; title: string; rea
             </div>
           ) : state.s === "idle" || state.s === "error" ? (
             <div className="mt-6">
-              <p className="text-mute">
+              <p className="text-muted">
                 Upload a clear, front-facing photo, standing, with good light. It takes about a minute. Your photo is used
                 only to create the preview and is not stored.
               </p>
@@ -96,17 +96,17 @@ export function TryOn({ slug, title, ready }: { slug: string; title: string; rea
                   .
                 </p>
               )}
-              <label className="mt-6 flex items-start gap-3 text-sm text-bone/85">
+              <label className="mt-6 flex items-start gap-3 text-sm text-fg/85">
                 <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-1 accent-[#d3952f]" />
                 I agree to my photo being processed by an AI model to create this preview.
               </label>
               <label
                 className={`mt-6 flex cursor-pointer flex-col items-center justify-center rounded-[1.5rem] border border-dashed p-10 text-center transition-colors ${
-                  consent ? "border-gold/60 hover:bg-gold/5" : "pointer-events-none border-line opacity-50"
+                  consent ? "border-gold/60 hover:bg-gold/5" : "pointer-events-none border-edge opacity-50"
                 }`}
               >
                 <span className="font-display text-2xl">Choose a photo</span>
-                <span className="mt-1 text-xs text-mute">JPG or PNG · from your camera or gallery</span>
+                <span className="mt-1 text-xs text-muted">JPG or PNG · from your camera or gallery</span>
                 <input type="file" accept="image/*" className="sr-only" disabled={!consent} onChange={(e) => onFile(e.target.files?.[0])} />
               </label>
             </div>
@@ -119,12 +119,12 @@ export function TryOn({ slug, title, ready }: { slug: string; title: string; rea
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={state.result} alt={`You wearing ${title}: AI preview`} className="aspect-[3/4] w-full rounded-2xl object-cover" />
                 ) : (
-                  <div className="flex aspect-[3/4] w-full flex-col items-center justify-center rounded-2xl border border-line">
+                  <div className="flex aspect-[3/4] w-full flex-col items-center justify-center rounded-2xl border border-edge">
                     <svg viewBox="0 0 40 40" className="h-12 w-12 animate-spin text-gold [animation-duration:2.4s]" fill="none" stroke="currentColor" aria-hidden="true">
                       <circle cx="20" cy="20" r="16" strokeDasharray="4 6" />
                     </svg>
                     <p className="mt-4 font-display text-xl">Creating your preview…</p>
-                    <p className="mt-1 px-4 text-center text-xs text-mute">Usually under a minute</p>
+                    <p className="mt-1 px-4 text-center text-xs text-muted">Usually under a minute</p>
                   </div>
                 )}
               </div>
@@ -138,7 +138,7 @@ export function TryOn({ slug, title, ready }: { slug: string; title: string; rea
                   </a>
                 </div>
               )}
-              <p className="mt-4 text-xs text-mute">AI previews show the idea, not the final fit. Your piece is made to your exact measurements.</p>
+              <p className="mt-4 text-xs text-muted">AI previews show the idea, not the final fit. Your piece is made to your exact measurements.</p>
             </div>
           )}
         </div>

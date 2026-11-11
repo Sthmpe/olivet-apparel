@@ -1,12 +1,12 @@
 /**
  * Portfolio content.
  *
- * Every look renders as an atelier sketch (drawn in code) until real photography
+ * Every look renders as an illustration (drawn in code) until real photography
  * is added. To add photos for a look, drop files in /public/looks/<slug>/ and list
- * them in `images` with the stage they belong to. The Fitting Room slider and the
+ * them in `images` with the stage they belong to. The sketch-to-finished slider and the
  * cards switch to photos automatically.
  *
- * `tryOnGarment` is a clean garment-only photo used by the AI "Wear it" try-on.
+ * `tryOnGarment` is a plain photo of the garment on its own, used by the AI try-on.
  */
 
 export type Silhouette =
@@ -73,10 +73,10 @@ export const occasions: { id: Occasion; label: string }[] = [
 ];
 
 export const collections: Collection[] = [
-  { slug: "gilded-vows", title: "Bridal", occasion: "bridal", kicker: "Bridal", intro: "Wedding gowns and reception looks." },
-  { slug: "owambe-royale", title: "Owambe", occasion: "celebration", kicker: "Owambe", intro: "Aso-oke, adire and lace for parties and asoebi." },
-  { slug: "after-dark", title: "Evening", occasion: "evening", kicker: "Evening", intro: "Gowns for dinners, galas and red carpets." },
-  { slug: "everyday-couture", title: "Everyday", occasion: "everyday", kicker: "Everyday", intro: "Tailored pieces for work, church and weekends." },
+  { slug: "bridal", title: "Bridal", occasion: "bridal", kicker: "Bridal", intro: "Wedding gowns and reception looks." },
+  { slug: "owambe", title: "Owambe", occasion: "celebration", kicker: "Owambe", intro: "Aso-oke, adire and lace for parties and asoebi." },
+  { slug: "evening", title: "Evening", occasion: "evening", kicker: "Evening", intro: "Gowns for dinners, galas and red carpets." },
+  { slug: "everyday", title: "Everyday", occasion: "everyday", kicker: "Everyday", intro: "Tailored pieces for work, church and weekends." },
 ];
 
 export const looks: Look[] = [
@@ -84,7 +84,7 @@ export const looks: Look[] = [
   {
     slug: "the-aurelia",
     title: "The Aurelia",
-    collection: "gilded-vows",
+    collection: "bridal",
     occasion: "bridal",
     silhouette: "ballgown",
     neckline: "sweetheart",
@@ -100,7 +100,7 @@ export const looks: Look[] = [
   {
     slug: "seraphine",
     title: "Seraphine",
-    collection: "gilded-vows",
+    collection: "bridal",
     occasion: "bridal",
     silhouette: "mermaid",
     neckline: "offshoulder",
@@ -115,7 +115,7 @@ export const looks: Look[] = [
   {
     slug: "second-light",
     title: "Second Light",
-    collection: "gilded-vows",
+    collection: "bridal",
     occasion: "bridal",
     silhouette: "jumpsuit",
     neckline: "v",
@@ -132,7 +132,7 @@ export const looks: Look[] = [
   {
     slug: "royal-ember",
     title: "Royal Ember",
-    collection: "owambe-royale",
+    collection: "owambe",
     occasion: "celebration",
     silhouette: "kaftan",
     neckline: "high",
@@ -147,7 +147,7 @@ export const looks: Look[] = [
   {
     slug: "emerald-court",
     title: "Emerald Court",
-    collection: "owambe-royale",
+    collection: "owambe",
     occasion: "celebration",
     silhouette: "mermaid",
     neckline: "high",
@@ -162,7 +162,7 @@ export const looks: Look[] = [
   {
     slug: "adire-bloom",
     title: "Adire Bloom",
-    collection: "owambe-royale",
+    collection: "owambe",
     occasion: "celebration",
     silhouette: "twopiece",
     neckline: "offshoulder",
@@ -179,7 +179,7 @@ export const looks: Look[] = [
   {
     slug: "midnight-gilt",
     title: "Midnight Gilt",
-    collection: "after-dark",
+    collection: "evening",
     occasion: "evening",
     silhouette: "column",
     neckline: "v",
@@ -193,7 +193,7 @@ export const looks: Look[] = [
   {
     slug: "velvet-hour",
     title: "Velvet Hour",
-    collection: "after-dark",
+    collection: "evening",
     occasion: "evening",
     silhouette: "aline",
     neckline: "offshoulder",
@@ -207,7 +207,7 @@ export const looks: Look[] = [
   {
     slug: "noir-sash",
     title: "Noir Sash",
-    collection: "after-dark",
+    collection: "evening",
     occasion: "evening",
     silhouette: "aline",
     neckline: "v",
@@ -225,7 +225,7 @@ export const looks: Look[] = [
   {
     slug: "the-directress",
     title: "The Directress",
-    collection: "everyday-couture",
+    collection: "everyday",
     occasion: "everyday",
     silhouette: "suit",
     neckline: "v",
@@ -239,7 +239,7 @@ export const looks: Look[] = [
   {
     slug: "sunday-silk",
     title: "Sunday Silk",
-    collection: "everyday-couture",
+    collection: "everyday",
     occasion: "everyday",
     silhouette: "aline",
     neckline: "high",
@@ -253,7 +253,7 @@ export const looks: Look[] = [
   {
     slug: "market-day",
     title: "Market Day",
-    collection: "everyday-couture",
+    collection: "everyday",
     occasion: "everyday",
     silhouette: "jumpsuit",
     neckline: "high",

@@ -81,7 +81,7 @@ export function StyleFinder() {
         {/* progress thread */}
         <div className="flex items-center gap-2" aria-hidden="true">
           {questions.map((_, i) => (
-            <span key={i} className="relative h-px flex-1 bg-line">
+            <span key={i} className="relative h-px flex-1 bg-edge">
               <span className="absolute inset-y-0 left-0 bg-gold transition-all duration-700" style={{ width: i < step ? "100%" : "0%" }} />
             </span>
           ))}
@@ -90,7 +90,7 @@ export function StyleFinder() {
 
         {!done ? (
           <div key={step} className="rise">
-            <h1 className="mt-4 font-display text-5xl font-light text-bone md:text-6xl">{q.title}</h1>
+            <h1 className="mt-4 font-display text-5xl font-light text-fg md:text-6xl">{q.title}</h1>
             <div className={`mt-12 grid gap-4 sm:grid-cols-2 ${q.options.length === 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"}`}>
               {q.options.map((o) => {
                 const look = o.look ? getLook(o.look) : undefined;
@@ -99,7 +99,7 @@ export function StyleFinder() {
                     key={o.value}
                     type="button"
                     onClick={() => choose(o.value)}
-                    className="group flex flex-col overflow-hidden rounded-[1.75rem] border border-line bg-ink-3 text-left transition-all duration-500 hover:-translate-y-1 hover:border-gold/70"
+                    className="group flex flex-col overflow-hidden rounded-[1.75rem] border border-edge bg-card text-left transition-all duration-500 hover:-translate-y-1 hover:border-gold/70"
                   >
                     <span className="on-dark art-well relative flex aspect-[4/3] items-center justify-center">
                       {look ? (
@@ -115,23 +115,23 @@ export function StyleFinder() {
                       )}
                       {look && <GarmentArt look={look} progress={1} className="absolute inset-0 m-auto h-[85%] w-auto opacity-0 transition-opacity duration-500 group-hover:opacity-100" />}
                     </span>
-                    <span className="border-t border-line p-5">
-                      <span className="block font-display text-2xl text-bone">{o.label}</span>
-                      <span className="mt-1 block text-sm text-mute">{o.hint}</span>
+                    <span className="border-t border-edge p-5">
+                      <span className="block font-display text-2xl text-fg">{o.label}</span>
+                      <span className="mt-1 block text-sm text-muted">{o.hint}</span>
                     </span>
                   </button>
                 );
               })}
             </div>
             {step > 0 && (
-              <button type="button" onClick={() => setStep((s) => s - 1)} className="mt-10 text-sm text-mute hover:text-gold-light">
+              <button type="button" onClick={() => setStep((s) => s - 1)} className="mt-10 text-sm text-muted hover:text-gold-light">
                 ← Back
               </button>
             )}
           </div>
         ) : (
           <div className="rise">
-            <h1 className="mt-4 font-display text-5xl font-light leading-tight text-bone md:text-6xl">
+            <h1 className="mt-4 font-display text-5xl font-light leading-tight text-fg md:text-6xl">
               {signature.map((s, i) => (
                 <span key={s}>
                   {i > 0 && <span className="mx-3 text-gold/50">·</span>}
@@ -139,22 +139,22 @@ export function StyleFinder() {
                 </span>
               ))}
             </h1>
-            <p className="mt-6 max-w-xl text-mute">These styles match your answers. Any of them can be changed to suit you.</p>
+            <p className="mt-6 max-w-xl text-muted">These styles match your answers. Any of them can be changed to suit you.</p>
             <div className="mt-12 grid gap-6 md:grid-cols-3">
               {results.map(({ look, pct }, i) => (
                 <Link
                   key={look.slug}
                   href={`/looks/${look.slug}`}
-                  className="group relative overflow-hidden rounded-[1.75rem] border border-line bg-ink-3 transition-colors hover:border-gold/70"
+                  className="group relative overflow-hidden rounded-[1.75rem] border border-edge bg-card transition-colors hover:border-gold/70"
                 >
                   <span className="absolute right-4 top-4 z-10 rounded-full border border-gold/50 bg-black/70 px-3 py-1 text-xs text-[#fada81]">{pct}% match</span>
                   {i === 0 && <span className="absolute left-4 top-4 z-10 font-caps text-[0.6rem] tracking-[0.3em] text-[#fada81]">Best match</span>}
                   <span className="on-dark art-well flex aspect-[4/5] items-center justify-center">
-                    <GarmentArt look={look} animateDraw={false} className="h-[86%] w-auto" />
+                    <GarmentArt look={look} className="h-[86%] w-auto" />
                   </span>
-                  <span className="block border-t border-line p-5">
-                    <span className="block font-display text-2xl text-bone">{look.title}</span>
-                    <span className="mt-1 block text-sm text-mute">{look.story.split(".")[0]}.</span>
+                  <span className="block border-t border-edge p-5">
+                    <span className="block font-display text-2xl text-fg">{look.title}</span>
+                    <span className="mt-1 block text-sm text-muted">{look.story.split(".")[0]}.</span>
                   </span>
                 </Link>
               ))}

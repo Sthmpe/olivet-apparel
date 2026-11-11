@@ -24,10 +24,10 @@ export default function Home() {
         <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 pb-16 sm:px-8 md:min-h-[calc(100dvh-7rem)] md:grid-cols-2 md:pb-10">
           <div className="order-2 md:order-1">
             <p className="kicker rise">Fashion designer in {site.city.split(",")[0]}</p>
-            <h1 className="rise mt-5 font-display text-[3.2rem] font-light leading-[0.98] text-bone sm:text-7xl lg:text-[5.6rem]" style={{ animationDelay: "100ms" }}>
+            <h1 className="rise mt-5 font-display text-[3.2rem] font-light leading-[0.98] text-fg sm:text-7xl lg:text-[5.6rem]" style={{ animationDelay: "100ms" }}>
               Custom outfits, <em className="gold-text font-normal">made to fit you.</em>
             </h1>
-            <p className="rise mt-6 max-w-md text-lg leading-relaxed text-mute" style={{ animationDelay: "200ms" }}>
+            <p className="rise mt-6 max-w-md text-lg leading-relaxed text-muted" style={{ animationDelay: "200ms" }}>
               {site.designer} designs and sews bridal, owambe, evening and everyday wear. Pick a style, book, and we make
               it to your measurements.
             </p>
@@ -35,14 +35,14 @@ export default function Home() {
               <Link href="/book" className="btn-gold">
                 Book now
               </Link>
-              <Link href="/collections" className="btn-ghost">
+              <Link href="/styles" className="btn-ghost">
                 See styles
               </Link>
             </div>
           </div>
 
           <div className="order-1 mx-auto w-full max-w-[18rem] md:order-2 md:max-w-[30rem]">
-            <div className="on-dark art-well rise relative rounded-t-[999px] rounded-b-[2rem] border border-line px-8 pb-10 pt-16 md:px-12 md:pb-14 md:pt-24">
+            <div className="on-dark art-well rise relative rounded-t-[999px] rounded-b-[2rem] border border-edge px-8 pb-10 pt-16 md:px-12 md:pb-14 md:pt-24">
               <Image
                 src="/brand/mark.png"
                 alt="Olivet Apparel logo: a gold gown on a dress form inside the letter O, with a needle and thread"
@@ -61,8 +61,8 @@ export default function Home() {
       {/* What we make */}
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-8 md:py-24">
         <div className="mb-10 flex items-end justify-between gap-6" data-stitch="left" data-stitch-y="0.5">
-          <h2 className="font-display text-4xl font-light text-bone md:text-6xl">What we make</h2>
-          <Link href="/collections" className="shrink-0 text-sm text-gold underline-offset-4 hover:underline">
+          <h2 className="font-display text-4xl font-light text-fg md:text-6xl">What we make</h2>
+          <Link href="/styles" className="shrink-0 text-sm text-gold underline-offset-4 hover:underline">
             See all styles
           </Link>
         </div>
@@ -72,15 +72,15 @@ export default function Home() {
             return (
               <Link
                 key={c.slug}
-                href={`/collections/${c.slug}`}
-                className="group overflow-hidden rounded-[1.5rem] border border-line bg-ink-3 transition-colors duration-500 hover:border-gold"
+                href={`/styles/${c.slug}`}
+                className="group overflow-hidden rounded-[1.5rem] border border-edge bg-card transition-colors duration-500 hover:border-gold"
               >
                 <div className="on-dark art-well relative aspect-[3/4]">
                   {first && <GarmentArt look={first} className="absolute inset-0 m-auto h-[84%] w-auto transition-transform duration-700 group-hover:scale-[1.04]" title={`${c.title} style`} />}
                 </div>
                 <div className="px-4 py-4 sm:px-5">
-                  <h3 className="font-display text-2xl text-bone sm:text-3xl">{c.title}</h3>
-                  <p className="mt-1 text-sm text-mute">{c.intro}</p>
+                  <h3 className="font-display text-2xl text-fg sm:text-3xl">{c.title}</h3>
+                  <p className="mt-1 text-sm text-muted">{c.intro}</p>
                 </div>
               </Link>
             );
@@ -89,17 +89,17 @@ export default function Home() {
       </section>
 
       {/* How it works */}
-      <section className="border-y border-line bg-ink-2">
+      <section className="border-y border-edge bg-panel">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-8 md:py-24">
-          <h2 className="font-display text-4xl font-light text-bone md:text-6xl" data-stitch="left" data-stitch-y="0.5">
+          <h2 className="font-display text-4xl font-light text-fg md:text-6xl" data-stitch="left" data-stitch-y="0.5">
             How it works
           </h2>
           <ol className="mt-10 grid gap-5 md:grid-cols-3">
             {steps.map((s) => (
-              <li key={s.n} className="rounded-[1.5rem] border border-line bg-ink-3 p-7">
+              <li key={s.n} className="rounded-[1.5rem] border border-edge bg-card p-7">
                 <span className="flex h-11 w-11 items-center justify-center rounded-full border border-gold font-display text-2xl text-gold">{s.n}</span>
-                <h3 className="mt-5 font-display text-3xl text-bone">{s.title}</h3>
-                <p className="mt-2 leading-relaxed text-mute">{s.body}</p>
+                <h3 className="mt-5 font-display text-3xl text-fg">{s.title}</h3>
+                <p className="mt-2 leading-relaxed text-muted">{s.body}</p>
               </li>
             ))}
           </ol>
@@ -109,10 +109,10 @@ export default function Home() {
       {/* See how it is made */}
       <section className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-16 sm:px-8 md:grid-cols-2 md:py-24">
         <div data-stitch="left" data-stitch-y="0.3">
-          <h2 className="font-display text-4xl font-light leading-tight text-bone md:text-6xl">
+          <h2 className="font-display text-4xl font-light leading-tight text-fg md:text-6xl">
             From sketch <em className="gold-text">to finished outfit</em>
           </h2>
-          <p className="mt-5 max-w-md text-lg text-mute">Drag the slider to see how a dress is made.</p>
+          <p className="mt-5 max-w-md text-lg text-muted">Drag the slider to see how a dress is made.</p>
           <Link href={`/looks/${featured.slug}`} className="btn-ghost mt-8">
             View this style
           </Link>
@@ -122,22 +122,22 @@ export default function Home() {
 
       {/* Fabrics */}
       <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-8 md:pb-24">
-        <h2 className="font-display text-4xl font-light text-bone md:text-6xl" data-stitch="left" data-stitch-y="0.5">
+        <h2 className="font-display text-4xl font-light text-fg md:text-6xl" data-stitch="left" data-stitch-y="0.5">
           Browse by fabric
         </h2>
-        <p className="mb-8 mt-3 text-mute">Tap a fabric to see the styles made with it.</p>
+        <p className="mb-8 mt-3 text-muted">Tap a fabric to see the styles made with it.</p>
         <SwatchDrawer />
         <span data-stitch="left" className="block h-px w-px" />
       </section>
 
       {/* Book */}
-      <section className="border-t border-line bg-ink-2">
+      <section className="border-t border-edge bg-panel">
         <div className="mx-auto max-w-3xl px-6 py-20 text-center md:py-28">
           <span data-stitch="center" data-stitch-y="0" className="mx-auto block h-px w-px" />
-          <h2 className="font-display text-5xl font-light leading-none text-bone md:text-7xl">
+          <h2 className="font-display text-5xl font-light leading-none text-fg md:text-7xl">
             Ready to order <em className="gold-text">yours?</em>
           </h2>
-          <p className="mx-auto mt-5 max-w-md text-lg text-mute">Booking takes two minutes. We reply within one working day.</p>
+          <p className="mx-auto mt-5 max-w-md text-lg text-muted">Booking takes two minutes. We reply within one working day.</p>
           <div className="mt-9 flex flex-wrap justify-center gap-4">
             <Link href="/book" className="btn-gold">
               Book now
@@ -146,7 +146,7 @@ export default function Home() {
               <WhatsAppIcon className="h-4 w-4" /> Chat on WhatsApp
             </a>
           </div>
-          <p className="mt-8 text-sm text-mute">
+          <p className="mt-8 text-sm text-muted">
             Not sure what you want?{" "}
             <Link href="/style-finder" className="text-gold underline-offset-4 hover:underline">
               Find your style in 4 questions
