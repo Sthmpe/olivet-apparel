@@ -1,32 +1,28 @@
 -- Olivet Apparel: database schema (PostgreSQL)
 --
--- The app creates this automatically on the first booking (ensureSchema in src/lib/db.ts),
--- so you never need to run it by hand. It's kept here as the reference.
---
--- Portfolio content (looks, collections, fabrics) lives in src/content/*.ts for v1.
--- Moving it into tables, so she can edit looks from /studio, is planned for a later milestone.
+-- Created automatically on the first request by PostgresBookingRepository
+-- (src/infrastructure/postgres/booking-repository.ts). Kept here as the reference.
+-- Portfolio photos are not in the database: they live in Vercel Blob, and each
+-- photo's category and title are encoded in its storage path.
 
-create table if not exists bookings (
-  id                bigserial primary key,
-  reference         text not null unique,          -- e.g. OA-7K3PQ
-  full_name         text not null,
-  email             text,
-  phone             text not null,                 -- WhatsApp number
-  preferred_contact text not null default 'whatsapp', -- whatsapp | call | email
-  occasion          text,                          -- bridal | celebration | evening | everyday | other
-  event_date        date,
-  fit               text not null default 'unsure', -- in_person_fitting | send_measurements | unsure
-  measurements      jsonb,                         -- { bust, waist, hips, shoulder, length, height }
-  delivery          text,                          -- pickup | delivery
-  budget_range      text,
-  notes             text,
-  look_slugs        text[] not null default '{}',  -- looks the client chose
-  style_finder      text,                          -- e.g. "occasion:bridal|shape:flowing"
-  attachment_count  int not null default 0,        -- inspiration photos (sent by email, not stored)
-  status            text not null default 'new',   -- new | contacted | fitting_booked | in_progress | delivered | cancelled
-  admin_notes       text,
-  emailed_at        timestamptz,                   -- null = the email alert did not go out
-  created_at        timestamptz not null default now()
+create table if not exists requests (
+  id               bigserial primary key,
+  reference        text not null unique,          -- e.g. OA-7K3PQ
+  kind             text not null,                 -- outfit | class
+  category         text,                          -- bridal | prom | dinner | corporate | everyday | ankara | trousers
+  course_id        text,                          -- set when kind = class
+  style_ref        text,                          -- portfolio style the client picked
+  full_name        text not null,
+  phone            text not null,
+  email            text,
+  contact_method   text not null,                 -- whatsapp | call | email
+  event_date       date,
+  budget           text not null,
+  notes            text not null default '',
+  inspiration_urls text[] not null default '{}',  -- photos the client attached (Vercel Blob URLs)
+  status           text not null default 'new',   -- new | contacted | confirmed | in_progress | delivered | cancelled
+  admin_notes      text,
+  created_at       timestamptz not null default now()
 );
 
-create index if not exists bookings_status_created on bookings (status, created_at desc);
+create index if not exists requests_created on requests (created_at desc);

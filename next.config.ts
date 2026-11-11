@@ -5,9 +5,13 @@ const nextConfig: NextConfig = {
   partialPrefetching: true,
   experimental: {
     serverActions: {
-      // Booking requests can carry up to 3 inspiration photos, compressed in the browser.
+      // Studio uploads and inspiration photos are compressed in the browser first.
       bodySizeLimit: "4mb",
     },
+  },
+  images: {
+    // Portfolio photos are stored in Vercel Blob.
+    remotePatterns: [{ protocol: "https", hostname: "*.public.blob.vercel-storage.com" }],
   },
   turbopack: {
     rules: {
@@ -18,13 +22,12 @@ const nextConfig: NextConfig = {
     },
   },
   async redirects() {
-    // Earlier URL names, kept working for links already shared.
+    // Earlier URLs, kept working for links already shared.
     return [
-      { source: "/collections", destination: "/styles", permanent: true },
-      { source: "/collections/gilded-vows", destination: "/styles/bridal", permanent: true },
-      { source: "/collections/owambe-royale", destination: "/styles/owambe", permanent: true },
-      { source: "/collections/after-dark", destination: "/styles/evening", permanent: true },
-      { source: "/collections/everyday-couture", destination: "/styles/everyday", permanent: true },
+      { source: "/collections/:path*", destination: "/portfolio", permanent: true },
+      { source: "/styles/:path*", destination: "/portfolio", permanent: true },
+      { source: "/looks/:path*", destination: "/portfolio", permanent: true },
+      { source: "/style-finder", destination: "/portfolio", permanent: true },
       { source: "/atelier", destination: "/about", permanent: true },
     ];
   },

@@ -4,18 +4,16 @@ A portfolio and booking site for the fashion designer behind Olivet Apparel. Rea
 
 ## Rules
 
-1. Keep copy short and plain. A first-time visitor must understand in five seconds that this is a fashion designer who makes custom outfits you can book. No em dashes in site copy.
-2. Booking is the first job. Never ship a change that makes booking slower or less reliable.
-3. A booking is saved before any email is sent. Email failure must never lose a lead.
-4. Brand colours are black and gold. Use the semantic tokens in `src/app/globals.css` (`bg-page`, `bg-card`, `text-fg`, `text-muted`, `border-edge`, `text-gold`); do not hard-code theme colours in components. Both light and dark mode must look right.
-5. Restrained motion only. No texture overlays, shimmer or scroll-linked fades. Respect `prefers-reduced-motion`.
-6. Mobile first. No horizontal scrolling at phone width.
-7. Use plain, parameterised SQL through `src/lib/db.ts`.
-8. Keep secrets on the server. Never expose database, email or studio secrets to the browser.
-9. AI try-on goes through `src/lib/tryon.ts` and the server route. Do not store visitor photos.
-10. Stay within free tiers and do not add dependencies without a clear need.
-11. Every image needs meaningful alt text.
-12. Run `npm run check` before committing. Add or update tests in `tests/` when changing logic in `src/lib`.
+1. The portfolio comes first. A first-time visitor must understand in five seconds that this is a bespoke fashion designer whose work they can browse and book.
+2. Keep copy short and plain. No em dashes anywhere in the code, copy or docs.
+3. Follow the architecture in `docs/ARCHITECTURE.md`: domain rules in `src/domain` (no I/O, no framework), use cases and ports in `src/application`, adapters in `src/infrastructure`, UI in `src/app` and `src/components`. Presentation never talks to Postgres or Blob directly.
+4. Every external service is optional and chosen in `src/infrastructure/container.ts`. A missing variable must switch a feature off, not break the site.
+5. Use the semantic colour tokens in `src/app/globals.css` (`bg-page`, `bg-panel`, `bg-card`, `text-fg`, `text-muted`, `text-gold`). Both light and dark mode must look right.
+6. Restrained design: few borders, no texture overlays, no scroll-linked or full-page animation.
+7. Mobile first. No horizontal scrolling at phone width.
+8. Portfolio images must be the designer's own or properly licensed.
+9. Keep secrets on the server.
+10. Run `npm run check` before committing, and add tests for new domain rules or use cases.
 
 <!-- BEGIN:nextjs-agent-rules -->
 

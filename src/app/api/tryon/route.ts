@@ -1,44 +1,50 @@
 import { NextResponse } from "next/server";
-import { getLook } from "@/content/looks";
-import { tryOn } from "@/lib/tryon";
+import { tryOnService } from "@/infrastructure/container";
 
 export const maxDuration = 120;
 
-// Best-effort per-instance rate limit: 4 try-ons per IP per 10 minutes.
-const hits = new Map<string, number[]>();
-function limited(ip: string) {
+const recent = new Map<string, number[]>();
+function rateLimited(ip: string) {
   const now = Date.now();
-  const recent = (hits.get(ip) ?? []).filter((t) => now - t < 10 * 60 * 1000);
-  recent.push(now);
-  hits.set(ip, recent);
-  return recent.length > 4;
+  const hits = (recent.get(ip) ?? []).filter((t) => now - t < 10 * 60 * 1000);
+  hits.push(now);
+  recent.set(ip, hits);
+  return hits.length > 4;
 }
 
-export async function POST(req: Request) {
-  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "local";
-  if (limited(ip)) return NextResponse.json({ error: "You've tried on a lot of looks! Please wait a few minutes." }, { status: 429 });
+/** Only photos from our own Blob store or this site may be used as the garment. */
+function isAllowedGarmentUrl(raw: string, requestUrl: string): URL | null {
+  try {
+    const url = new URL(raw, requestUrl);
+    const sameOrigin = url.origin === new URL(requestUrl).origin;
+    const ourBlob = url.protocol === "https:" && url.hostname.endsWith(".public.blob.vercel-storage.com");
+    return sameOrigin || ourBlob ? url : null;
+  } catch {
+    return null;
+  }
+}
 
-  const fd = await req.formData().catch(() => null);
-  const photo = fd?.get("photo");
-  const look = getLook(String(fd?.get("slug") ?? ""));
+export async function POST(request: Request) {
+  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "local";
+  if (rateLimited(ip)) return NextResponse.json({ error: "Too many tries. Please wait a few minutes." }, { status: 429 });
+
+  const form = await request.formData().catch(() => null);
+  const photo = form?.get("photo");
+  const garmentUrl = isAllowedGarmentUrl(String(form?.get("photoUrl") ?? ""), request.url);
+  const title = String(form?.get("title") ?? "Outfit").slice(0, 80);
+
   if (!(photo instanceof File) || !photo.type.startsWith("image/") || photo.size > 4 * 1024 * 1024) {
     return NextResponse.json({ error: "Please upload a photo under 4 MB." }, { status: 400 });
   }
-  if (!look?.tryOnGarment) {
-    return NextResponse.json({ error: "This look isn't ready for virtual try-on yet." }, { status: 409 });
-  }
+  if (!garmentUrl) return NextResponse.json({ error: "This style cannot be tried on." }, { status: 400 });
 
   try {
-    const garmentRes = await fetch(new URL(look.tryOnGarment, req.url));
-    if (!garmentRes.ok) throw new Error("garment image missing");
-    const image = await tryOn({
-      person: photo,
-      garment: await garmentRes.blob(),
-      description: `${look.title}, ${look.story.split(".")[0]}`,
-    });
+    const garment = await fetch(garmentUrl);
+    if (!garment.ok) throw new Error(`garment ${garment.status}`);
+    const image = await tryOnService().tryOn(photo, await garment.blob(), title);
     return NextResponse.json({ image });
-  } catch (e) {
-    console.error("[tryon]", e);
-    return NextResponse.json({ error: "Our fitting room is busy right now." }, { status: 503 });
+  } catch (error) {
+    console.error("[tryon]", error);
+    return NextResponse.json({ error: "The try-on service is busy right now." }, { status: 503 });
   }
 }

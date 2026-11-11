@@ -1,64 +1,98 @@
 # Olivet Apparel
 
-A portfolio and booking website for **Olivet Apparel**, a custom fashion house in Lagos run by designer Titilayomi. Visitors browse her styles, see how an outfit is made, and send a booking request that reaches her by email and WhatsApp.
+Website for **Olivet Apparel**, a bespoke fashion house in Lagos run by designer Titilayomi. Clients browse her portfolio by category, book an outfit or a sewing class, and reach her on WhatsApp or by email. She manages her own portfolio photos and incoming requests from a private studio page.
 
 **Live site:** https://olivet-apparel.vercel.app
 
 | Light mode | Dark mode |
 |---|---|
 | ![Home page in light mode](docs/screenshots/home-light.jpg) | ![Home page in dark mode](docs/screenshots/home-dark.jpg) |
-| ![A style page with the sketch-to-finished slider](docs/screenshots/style-page.jpg) | ![The booking form with its live order ticket](docs/screenshots/booking.jpg) |
 
-## The brief
+## Features
 
-The client wanted a site that makes a visitor think "this designer can make my outfit" and then makes booking easy. It had to feel premium and different from a template, stay simple enough that nobody gets lost, cost nothing to run, and launch before any professional photos existed.
-
-## What I built
-
-- **A clear path to booking.** The home page says what the business is in one sentence, then shows what she makes, how ordering works, and a booking button. Every page is one tap from the booking form or WhatsApp.
-- **Styles drawn in code.** With no photography yet, each outfit is an SVG illustration generated from data (silhouette, neckline, fabric, colours). When real photos arrive they replace the drawings one style at a time, with no code changes.
-- **Sketch-to-finished slider.** Drag to watch an outfit go from pencil sketch, to fabric, to fitting, to the finished piece. One component, driven by a single progress value.
-- **A thread that follows the scroll.** A gold thread leaves the needle in the logo and runs down the page as you scroll, ending at the booking section. It is one SVG path, measured from the layout, with no animation library.
-- **Find my style.** Four picture questions match a visitor to styles. The scoring is plain, deterministic code, so it is instant, free and testable.
-- **Booking that never loses a lead.** A request is validated on the server, saved to PostgreSQL, emailed to the designer with the client's inspiration photos attached, and handed to WhatsApp with the whole brief pre-typed. Each step still works if the one before it is not configured or fails.
-- **Private studio inbox.** A password-protected page where the designer sees requests, updates their status and replies on WhatsApp in one tap.
-- **AI try-on, wired and waiting.** A server route proxies an open-source virtual try-on model. It switches on per style once a garment photo is added.
-- **Light and dark mode.** The site follows the device setting: black and gold in dark mode, ivory and deep gold in light mode.
-
-## Engineering notes
-
-| Decision | Why |
+| Area | What it does |
 |---|---|
-| **Next.js App Router with Partial Prerendering** | Public pages are static HTML from a CDN. Only the studio inbox and server actions run on demand. |
-| **Server Actions for forms** | The booking form posts straight to a server function. No API layer to maintain, and it works before JavaScript loads. |
-| **Plain SQL, no ORM** | One table and a handful of parameterised queries. The schema is created on first use, so a new database needs no setup. |
-| **Save first, notify second** | The database write happens before the email. An email outage cannot lose a booking, and the WhatsApp hand-off works with no backend at all. |
-| **Graceful degradation by configuration** | Database, email, try-on and the studio each switch on with an environment variable. With none set the site still takes bookings. |
-| **Semantic design tokens** | Colours are CSS variables (`page`, `card`, `fg`, `muted`, `edge`, `gold`) mapped into Tailwind. Themes swap the variables, so components contain no theme logic. |
-| **Images compressed in the browser** | Inspiration photos are resized on a canvas before upload, which keeps the form fast on mobile data and inside serverless limits. |
-| **Few dependencies** | Runtime dependencies are Next.js, React, `postgres` and `@gradio/client`. Email goes through a single `fetch` call. |
-| **Security basics** | Secrets stay on the server. The studio uses an HMAC-signed, httpOnly cookie with constant-time comparison. Forms have a honeypot, a minimum-time check and strict input allow-lists. |
-| **Accessibility** | Semantic HTML, labelled controls, keyboard focus styles, `prefers-reduced-motion` support, and decorative graphics hidden from screen readers. |
+| **Portfolio** | Photo gallery grouped into seven categories: Bridal, Prom, Dinner, Corporate, Everyday, Ankara and Trousers. Filter by category, open any photo full screen, and book that style. |
+| **Services** | One section per category with what it includes, plus the four-step ordering process. |
+| **Classes** | Sewing courses from Foundation to Advanced, in the studio or online, with prices and an enrol button. |
+| **Booking** | One short form for outfits and classes. The request is saved, delivered to the studio inbox for free, and handed to WhatsApp or email with the full brief pre-written. |
+| **Studio** | Password-protected page where the designer uploads and deletes portfolio photos and manages requests. |
+| **AI try-on** | Visitors upload a photo and preview a portfolio style on themselves, using an open-source model behind a server route. |
+| **Theme** | Follows the device setting: black and gold in dark mode, ivory and deep gold in light mode. |
+
+## Technology
+
+| Layer | Choice |
+|---|---|
+| Framework | Next.js 16 (App Router, Server Components, Server Actions, Partial Prerendering, `use cache`) |
+| Language | TypeScript (strict) |
+| UI | React 19, Tailwind CSS 4, `next/image`, Google Fonts (Cormorant Garamond, Cinzel, Jost) |
+| Photo storage | Vercel Blob |
+| Database | PostgreSQL through the `postgres` driver, plain parameterised SQL |
+| Email | FormSubmit (free, no account), with `mailto:` and WhatsApp fallbacks |
+| AI | IDM-VTON on Hugging Face through `@gradio/client` |
+| Testing | Vitest |
+| CI and hosting | GitHub Actions, Vercel |
 
 ## Architecture
 
+The code follows **Clean Architecture** (ports and adapters). Dependencies point inward: business rules know nothing about Next.js, Vercel or Postgres.
+
 ```mermaid
 flowchart LR
-  V[Visitor] --> N[Next.js on Vercel]
-  N -->|static pages| V
-  N -->|server action| B[Validate booking]
-  B --> D[(PostgreSQL)]
-  B --> E[Resend email] --> I[Designer's inbox]
-  B --> W[WhatsApp link with brief]
-  N -->|/api/tryon| H[Open-source try-on model]
-  S[Designer] -->|password| ST[/studio inbox/] --> D
+  subgraph Presentation["Presentation: src/app, src/components"]
+    Pages[Pages and components]
+    Actions[Server Actions and route handlers]
+  end
+  subgraph Application["Application: src/application"]
+    UseCases[Use cases]
+    Ports[Ports: interfaces]
+  end
+  subgraph Domain["Domain: src/domain"]
+    Rules[Entities and business rules]
+  end
+  subgraph Infrastructure["Infrastructure: src/infrastructure"]
+    Adapters[Postgres, Vercel Blob, Hugging Face, FormSubmit]
+    Container[Composition root]
+  end
+  Pages --> Actions --> UseCases --> Rules
+  UseCases --> Ports
+  Adapters -. implements .-> Ports
+  Container --> Adapters
+  Actions --> Container
 ```
 
-## Tech stack
+| Layer | Folder | Responsibility | Examples |
+|---|---|---|---|
+| Domain | `src/domain` | Entities and rules as pure functions. No I/O, no framework. | `catalog.ts` categories and photo-path encoding, `booking.ts` validation and the request brief, `courses.ts` |
+| Application | `src/application` | Use cases, and the ports (interfaces) they need. | `submitBooking`, `listPortfolio`, `addStudioPhoto`, `BookingRepository`, `FileStorage`, `TryOnService` |
+| Infrastructure | `src/infrastructure` | Adapters that implement the ports, and the composition root that picks one per environment. | `PostgresBookingRepository`, `VercelBlobStorage`, `HuggingFaceTryOn`, `container.ts` |
+| Presentation | `src/app`, `src/components` | Routes, Server Actions and React components. Thin adapters that call use cases. | `app/book/actions.ts`, `components/portfolio/Gallery.tsx` |
+| Content | `src/content` | Editable data: site settings, services, classes. | `site.ts`, `courses.ts` |
 
-Next.js 16 · React 19 · TypeScript · Tailwind CSS 4 · PostgreSQL · Resend · Vitest · GitHub Actions · Vercel
+Because use cases depend on interfaces, the tests run them against in-memory fakes (`tests/fakes.ts`) with no database or network.
 
-## Run it locally
+### How the portfolio is categorised
+
+Categories are defined once, in `src/domain/catalog.ts`. A studio upload is stored in Vercel Blob at:
+
+```
+portfolio/<category>/<timestamp>-<title-slug>.jpg
+```
+
+The path itself carries the category, title and upload time, so the portfolio needs no database. `parseStudioPhotoPath` reads it back, and `listPortfolio` merges uploads (newest first) with any photos shipped in `src/content/catalog.ts`. The listing is cached with `use cache` and refreshed instantly through a cache tag whenever a photo is added or deleted.
+
+### How a booking travels
+
+1. The form posts to a Server Action, which calls the `submitBooking` use case.
+2. `validateBookingRequest` checks every field against allow-lists and length limits.
+3. Inspiration photos, already compressed in the browser, are saved to Vercel Blob.
+4. The request is saved to Postgres when a database is connected.
+5. The client sees a confirmation. The browser delivers the request to the studio inbox through FormSubmit, and offers WhatsApp and email buttons carrying the full brief.
+
+Every storage step is optional and isolated: if one fails or is not configured, the client can still send the request.
+
+## Getting started
 
 ```bash
 npm install
@@ -66,56 +100,48 @@ cp .env.example .env.local   # every variable is optional
 npm run dev                  # http://localhost:3000
 ```
 
-| Command | What it does |
+| Command | Purpose |
 |---|---|
-| `npm run dev` | Start the development server |
+| `npm run dev` | Development server |
 | `npm run build` | Production build |
-| `npm run check` | Lint, type check and run the tests |
-| `npm test` | Unit tests only |
+| `npm run check` | Lint, type check and tests |
+| `npm test` | Unit tests |
 
 ## Configuration
 
-The site runs with no environment variables. Each one below switches a feature on.
+The site runs with no environment variables. Each one switches a feature on.
 
-| Variable | Purpose |
+| Variable | Feature |
 |---|---|
-| `NEXT_PUBLIC_WHATSAPP_NUMBER` | WhatsApp number, digits only, international format |
-| `NEXT_PUBLIC_PHONE_DISPLAY` | Phone number as displayed |
+| `NEXT_PUBLIC_WHATSAPP_NUMBER`, `NEXT_PUBLIC_PHONE_DISPLAY` | WhatsApp buttons and phone number |
 | `NEXT_PUBLIC_CONTACT_EMAIL`, `NEXT_PUBLIC_INSTAGRAM`, `NEXT_PUBLIC_STUDIO_CITY` | Public contact details |
-| `NEXT_PUBLIC_SITE_URL` | Canonical URL, used for SEO and social previews |
-| `DATABASE_URL` | PostgreSQL connection string. Enables stored bookings and the studio inbox. |
-| `RESEND_API_KEY`, `BOOKING_TO_EMAIL` | Enables booking emails to the designer |
-| `EMAIL_FROM` | Verified sender address. Enables confirmation emails to clients. |
-| `STUDIO_PASSWORD`, `STUDIO_SECRET` | Enables the private `/studio` inbox |
-| `HF_TOKEN`, `TRYON_SPACE` | Optional settings for AI try-on |
+| `NEXT_PUBLIC_SITE_URL` | Canonical URL for SEO and social previews |
+| `NEXT_PUBLIC_BOOKING_EMAIL` | Inbox for booking requests through FormSubmit. The first request sends a one-time activation email. |
+| `BLOB_READ_WRITE_TOKEN` | Portfolio uploads and inspiration photos. Added by Vercel when a Blob store is connected. |
+| `DATABASE_URL` | Request inbox in the studio |
+| `STUDIO_PASSWORD`, `STUDIO_SECRET` | The private `/studio` page |
+| `HF_TOKEN`, `TRYON_SPACE` | Optional AI try-on settings |
 
 ## Project structure
 
 ```
 src/
-  app/            Routes, server actions and the try-on API route
-  components/     UI, grouped by feature (booking, garment, styles, thread, ...)
-  content/        Site settings, styles and fabrics: edit content here
-  lib/            Booking validation, SQL, email, auth, style matching, garment geometry
-tests/            Unit tests for the pure logic
-db/schema.sql     Reference schema (created automatically at runtime)
-docs/             Architecture, decisions and roadmap
+  domain/          Business rules: catalog, booking, courses
+  application/     Use cases and ports
+  infrastructure/  Adapters (Postgres, Vercel Blob, Hugging Face, FormSubmit), auth, composition root
+  app/             Routes, Server Actions, API routes
+  components/      React components grouped by feature
+  content/         Site settings, services, classes
+tests/             Domain and use-case tests with in-memory fakes
+db/schema.sql      Reference database schema
+docs/              Architecture, decisions, roadmap, case study
 ```
 
-### Adding a style or photos
+## Quality
 
-Styles live in `src/content/looks.ts`. Add an entry to `looks` to create a new style. To use real photos, put them in `public/looks/<slug>/` and list them under `images` with their stage (`sketch`, `fabric`, `fitting`, `final`). Set `tryOnGarment` to a plain photo of the garment to enable AI try-on for that style.
-
-## Testing
-
-`npm test` runs unit tests for the logic that must not break: booking validation and sanitising, reference generation, the style-matching scores, content integrity (every style points at a real collection and fabric) and the garment geometry. CI runs lint, type check, tests and a production build on every push.
-
-## Roadmap
-
-- Replace illustrations with studio photography
-- Edit styles from the studio instead of the content file
-- Online deposits
-- Client testimonials
+- `npm run check` runs ESLint, `next typegen` with `tsc`, and Vitest. GitHub Actions runs it plus a production build on every push.
+- Accessibility: semantic HTML, labelled controls, visible focus, keyboard navigation in the photo viewer, reduced-motion support.
+- Security: secrets stay on the server; the studio uses an HMAC-signed httpOnly cookie with constant-time comparison; form input is validated against allow-lists; the try-on route only accepts garment images from this site's own storage.
 
 ## Credits
 

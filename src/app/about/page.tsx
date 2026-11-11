@@ -1,44 +1,53 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { PageHero } from "@/components/ui/PageHero";
 import { site, whatsappLink } from "@/content/site";
+import { PageHeader } from "@/components/ui/PageHeader";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "About Olivet Apparel and its designer, Titilayomi.",
+  description: "About Olivet Apparel, a bespoke fashion house in Lagos founded by designer Titilayomi.",
 };
 
 const values = [
   { title: "Made to fit you", body: "Every outfit is cut to your own measurements." },
-  { title: "Sewn by hand", body: "Beading, lace and hems are finished carefully by hand." },
+  { title: "Finished by hand", body: "Beading, lace and hems are finished carefully by hand." },
   { title: "Ready on time", body: "We plan around your date and book fittings early." },
   { title: "Honest advice", body: "We tell you what will suit you and your budget." },
 ];
 
 const faqs = [
-  { q: "How early should I book?", a: "Bridal: 3 to 6 months before your date. Owambe and evening wear: 4 to 8 weeks. Everyday pieces: 2 to 4 weeks. Need it sooner? Ask us." },
-  { q: "I don't live nearby. Can I still order?", a: "Yes. We take your measurements on a video call and deliver to you." },
-  { q: "Can I change a style?", a: "Yes. You can change the colour, neckline, sleeves or length of any style." },
-  { q: "Do you make asoebi for groups?", a: "Yes. Tell us the group size and date when you book." },
+  { q: "How early should I book?", a: "Bridal: 3 to 6 months before your date. Prom, dinner and corporate wear: 3 to 6 weeks. Everyday and Ankara pieces: 1 to 3 weeks. Need it sooner? Ask us." },
+  { q: "I don't live in Lagos. Can I still order?", a: "Yes. We take your measurements on a video call and deliver to you." },
+  { q: "Can I change a style from the portfolio?", a: "Yes. Colour, neckline, sleeves and length can all be changed to suit you." },
+  { q: "Do you make outfits for groups?", a: "Yes. Tell us the group size and date when you book." },
   { q: "How do I pay?", a: "We agree the price after your consultation. A deposit confirms your order and the balance is paid before delivery." },
 ];
 
 export default function AboutPage() {
   return (
     <>
-      <PageHero kicker="About" title={<>The designer behind <em className="gold-text">Olivet Apparel</em></>}>
-        {site.designer} designs and sews custom outfits in {site.city.split(",")[0]}: bridal, owambe, evening and everyday wear,
-        each one made for the person who will wear it.
-      </PageHero>
+      <PageHeader eyebrow="About" title={<>The designer behind <em className="gold-text">Olivet Apparel</em></>}>
+        {site.intro}
+      </PageHeader>
 
-      <section className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-10 sm:px-8 md:grid-cols-2 md:py-16">
-        <div className="on-dark art-well mx-auto w-full max-w-md rounded-[2rem] border border-edge p-10">
-          <Image src="/brand/mark.png" alt="" width={900} height={719} className="h-auto w-full" />
+      <section className="mx-auto grid max-w-7xl gap-10 px-4 pb-16 sm:px-8 md:grid-cols-2 md:items-center">
+        <div className="flex aspect-[4/3] items-center justify-center rounded-3xl bg-[radial-gradient(70%_60%_at_50%_45%,#2a2110_0%,#0b0a08_75%)] p-10">
+          <Image src="/brand/mark.png" alt="" width={900} height={719} className="h-auto w-full max-w-sm" />
         </div>
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="space-y-5 text-lg leading-relaxed text-muted">
+          <p>
+            {site.designer} founded Olivet Apparel to make clothes that feel personal: designed for one person, cut to their
+            measurements and finished with care.
+          </p>
+          <p>From wedding gowns to office suits and Ankara sets, every piece starts with a conversation about you, your occasion and your style.</p>
+        </div>
+      </section>
+
+      <section className="bg-panel">
+        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-16 sm:grid-cols-2 sm:px-8 lg:grid-cols-4">
           {values.map((v) => (
-            <div key={v.title} className="rounded-[1.5rem] border border-edge bg-card p-6">
+            <div key={v.title}>
               <h2 className="font-display text-2xl text-fg">{v.title}</h2>
               <p className="mt-2 text-muted">{v.body}</p>
             </div>
@@ -46,39 +55,39 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-4xl px-4 py-12 sm:px-8 md:py-20">
+      <section className="mx-auto max-w-3xl px-4 py-16 sm:px-8 md:py-24">
         <h2 className="font-display text-4xl font-light text-fg md:text-5xl">Common questions</h2>
-        <div className="mt-8 divide-y divide-edge border-y border-edge">
+        <div className="mt-8 space-y-3">
           {faqs.map((f) => (
-            <details key={f.q} className="group py-5">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-6 font-display text-2xl text-fg marker:hidden">
+            <details key={f.q} className="group rounded-2xl bg-card px-5 py-4">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-6 font-display text-xl text-fg marker:hidden">
                 {f.q}
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-edge text-gold transition-transform duration-500 group-open:rotate-45">+</span>
+                <span className="text-2xl text-gold transition-transform group-open:rotate-45">+</span>
               </summary>
-              <p className="mt-3 max-w-2xl leading-relaxed text-muted">{f.a}</p>
+              <p className="mt-3 text-muted">{f.a}</p>
             </details>
           ))}
         </div>
       </section>
 
-      <section className="border-t border-edge bg-panel">
-        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 px-4 py-14 sm:px-8 md:flex-row md:items-center">
+      <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-8">
+        <div className="flex flex-col items-start justify-between gap-6 rounded-3xl bg-panel p-8 sm:p-10 md:flex-row md:items-center">
           <div>
-            <p className="kicker">Studio</p>
-            <p className="mt-3 font-display text-4xl text-fg">{site.city}</p>
-            <p className="mt-2 text-muted">
-              By appointment.{" "}
-              <a href={`tel:+${site.whatsapp}`} className="text-gold hover:underline">
+            <p className="eyebrow">Studio</p>
+            <p className="mt-2 font-display text-3xl text-fg">{site.city}</p>
+            <p className="mt-1 text-muted">
+              By appointment ·{" "}
+              <a className="text-gold" href={`tel:+${site.whatsapp}`}>
                 {site.phoneDisplay}
               </a>
             </p>
           </div>
-          <div className="flex flex-wrap gap-4">
-            <Link href="/book" className="btn-gold">
+          <div className="flex flex-wrap gap-3">
+            <Link href="/book" className="btn btn-primary">
               Book now
             </Link>
-            <a href={whatsappLink("Hello Olivet Apparel, I would like to visit the studio.")} target="_blank" rel="noopener noreferrer" className="btn-ghost">
-              Chat on WhatsApp
+            <a href={whatsappLink("Hello Olivet Apparel, I would like to visit the studio.")} target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
+              WhatsApp
             </a>
           </div>
         </div>

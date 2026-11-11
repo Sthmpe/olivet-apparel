@@ -1,203 +1,188 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { Suspense } from "react";
 import { connection } from "next/server";
-import { isSignedIn, studioConfigured } from "@/lib/studio-auth";
-import { ensureSchema, hasDatabase, sql } from "@/lib/db";
-import { hasEmail } from "@/lib/email";
-import { getLook } from "@/content/looks";
-import { OCCASIONS, STATUSES, clientWhatsappLink, labelFor } from "@/lib/booking";
-import { signOut, updateBooking } from "./actions";
+import { BOOKING_STATUSES, whatsappLinkTo } from "@/domain/booking";
+import { getCategory } from "@/domain/catalog";
+import { courses } from "@/content/courses";
+import { isSignedIn, studioConfigured } from "@/infrastructure/auth/studio-session";
+import { bookingRepository, features } from "@/infrastructure/container";
+import { getPortfolio } from "@/infrastructure/portfolio-query";
+import { deletePhoto, signOut, updateRequest } from "./actions";
 import { LoginForm } from "./LoginForm";
+import { PhotoUploader } from "./PhotoUploader";
 
 export const metadata: Metadata = { title: "Studio", robots: { index: false, follow: false } };
-
-type Row = {
-  id: number;
-  reference: string;
-  full_name: string;
-  email: string | null;
-  phone: string;
-  preferred_contact: string;
-  occasion: string | null;
-  event_date: Date | null;
-  fit: string;
-  measurements: Record<string, string> | null;
-  delivery: string | null;
-  budget_range: string | null;
-  notes: string | null;
-  look_slugs: string[];
-  style_finder: string | null;
-  attachment_count: number;
-  status: string;
-  admin_notes: string | null;
-  emailed_at: Date | null;
-  created_at: Date;
-};
 
 const statusLabel = (s: string) => s.replace("_", " ").replace(/^\w/, (c) => c.toUpperCase());
 
 export default function StudioPage() {
   return (
-    <div className="min-h-dvh bg-page">
-      <div className="mx-auto max-w-6xl px-4 py-10 sm:px-8">
-        <div className="flex items-center gap-3">
-          <Image src="/brand/mark.png" alt="" width={44} height={35} className="h-9 w-auto" />
-          <div>
-            <p className="font-caps tracking-[0.3em] text-fg">THE STUDIO</p>
-            <p className="text-xs text-muted">Olivet Apparel · private</p>
-          </div>
-        </div>
-        <Suspense fallback={<p className="mt-16 text-muted">Opening the studio…</p>}>
-          <StudioContent />
-        </Suspense>
+    <div className="mx-auto min-h-dvh max-w-6xl px-4 py-10 sm:px-8">
+      <div className="flex items-center justify-between gap-4">
+        <Link href="/" className="flex items-center gap-3">
+          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#0b0a08]">
+            <Image src="/brand/mark.png" alt="" width={44} height={35} className="h-6 w-auto" />
+          </span>
+          <span>
+            <span className="block font-caps tracking-[0.3em] text-fg">STUDIO</span>
+            <span className="block text-xs text-muted">Olivet Apparel</span>
+          </span>
+        </Link>
       </div>
+      <Suspense fallback={<p className="mt-16 text-muted">Opening the studio</p>}>
+        <StudioContent />
+      </Suspense>
     </div>
   );
 }
 
 async function StudioContent() {
-  await connection(); // read env + cookies per request, never at build time
-  if (!studioConfigured()) {
-    return (
-      <Notice title="The studio isn't set up yet">
-        Add a <code className="text-gold-light">STUDIO_PASSWORD</code> environment variable on Vercel, then redeploy.
-      </Notice>
-    );
-  }
+  await connection(); // read cookies and settings per request, never at build time
+  if (!studioConfigured()) return <Notice title="The studio is not set up yet">Add a STUDIO_PASSWORD environment variable on Vercel, then redeploy.</Notice>;
   if (!(await isSignedIn())) return <LoginForm />;
 
-  const status = (
-    <div className="flex flex-wrap gap-3 text-xs">
-      <span className={`rounded-full border px-3 py-1 ${hasDatabase() ? "border-gold/50 text-gold-light" : "border-edge text-muted"}`}>
-        Database {hasDatabase() ? "connected" : "not connected"}
-      </span>
-      <span className={`rounded-full border px-3 py-1 ${hasEmail() ? "border-gold/50 text-gold-light" : "border-edge text-muted"}`}>
-        Email alerts {hasEmail() ? "on" : "off"}
-      </span>
-      <form action={signOut}>
-        <button className="rounded-full border border-edge px-3 py-1 text-muted hover:border-gold hover:text-gold-light">Sign out</button>
-      </form>
+  return (
+    <div className="mt-10 space-y-16">
+      <div className="flex flex-wrap items-center gap-3 text-xs">
+        <span className="rounded-full bg-card px-3 py-1.5">Photo uploads {features.photoUploads() ? "on" : "off"}</span>
+        <span className="rounded-full bg-card px-3 py-1.5">Request inbox {features.database() ? "on" : "off"}</span>
+        <form action={signOut}>
+          <button className="rounded-full bg-card px-3 py-1.5 text-muted hover:text-gold">Sign out</button>
+        </form>
+      </div>
+      <PhotosSection />
+      <RequestsSection />
     </div>
   );
+}
 
-  if (!hasDatabase()) {
-    return (
-      <div className="mt-10 space-y-6">
-        {status}
-        <Notice title="Connect a database to keep a booking inbox">
-          Add a <code className="text-gold-light">DATABASE_URL</code> (free Neon or Supabase Postgres) on Vercel. Bookings still
-          reach you by email and WhatsApp in the meantime.
-        </Notice>
+async function PhotosSection() {
+  const uploads = (await getPortfolio()).filter((p) => p.origin === "studio");
+  return (
+    <section>
+      <h2 className="font-display text-4xl text-fg">Portfolio photos</h2>
+      <p className="mt-2 text-muted">Photos appear on the website straight away. Faceless and mannequin shots work best.</p>
+      <div className="mt-6">
+        {features.photoUploads() ? <PhotoUploader /> : <Notice title="Photo storage is off">Connect a Vercel Blob store to this project to upload photos.</Notice>}
       </div>
+      {uploads.length > 0 && (
+        <ul className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+          {uploads.map((p) => (
+            <li key={p.id} className="overflow-hidden rounded-2xl bg-card">
+              <div className="relative aspect-[3/4]">
+                <Image src={p.src} alt={p.alt} fill sizes="16rem" className="object-cover" />
+              </div>
+              <div className="flex items-center justify-between gap-2 p-3">
+                <div className="min-w-0">
+                  <p className="truncate text-sm text-fg">{p.title}</p>
+                  <p className="text-xs text-muted">{getCategory(p.category).label}</p>
+                </div>
+                <form action={deletePhoto}>
+                  <input type="hidden" name="url" value={p.src} />
+                  <input type="hidden" name="pathname" value={p.id} />
+                  <button className="rounded-full bg-page px-3 py-1.5 text-xs text-muted hover:text-red-600" aria-label={`Delete ${p.title}`}>
+                    Delete
+                  </button>
+                </form>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  );
+}
+
+async function RequestsSection() {
+  const repository = bookingRepository();
+  if (!repository) {
+    return (
+      <section>
+        <h2 className="font-display text-4xl text-fg">Requests</h2>
+        <Notice title="Requests arrive by WhatsApp and email">Connect a Postgres database (free on Neon) to also keep every request here.</Notice>
+      </section>
     );
   }
-
-  await ensureSchema();
-  const rows = (await sql()`select * from bookings order by created_at desc limit 200`) as unknown as Row[];
-  const counts = STATUSES.map((s) => [s, rows.filter((r) => r.status === s).length] as const);
-
+  const requests = await repository.list(200);
   return (
-    <div className="mt-10">
-      {status}
-      <div className="mt-8 grid grid-cols-3 gap-3 sm:grid-cols-6">
-        {counts.map(([s, n]) => (
-          <div key={s} className="rounded-2xl border border-edge bg-card p-4">
-            <p className="font-display text-3xl text-fg">{n}</p>
-            <p className="text-[0.65rem] uppercase tracking-[0.18em] text-muted">{statusLabel(s)}</p>
-          </div>
-        ))}
-      </div>
-
-      <h1 className="mt-12 font-display text-4xl text-fg">Booking requests</h1>
-      {rows.length === 0 ? (
-        <p className="mt-6 text-muted">No bookings yet. They&apos;ll appear here the moment someone books.</p>
+    <section>
+      <h2 className="font-display text-4xl text-fg">Requests</h2>
+      {requests.length === 0 ? (
+        <p className="mt-3 text-muted">No requests yet.</p>
       ) : (
         <ul className="mt-6 space-y-4">
-          {rows.map((r) => (
-            <li key={r.id} className="rounded-[1.5rem] border border-edge bg-card p-6">
+          {requests.map((r) => (
+            <li key={r.id} className="rounded-3xl bg-card p-6">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
-                  <p className="font-caps text-xs tracking-[0.25em] text-gold">{r.reference}</p>
-                  <h2 className="mt-1 font-display text-3xl text-fg">{r.full_name}</h2>
-                  <p className="mt-1 text-sm text-muted">
-                    {labelFor(OCCASIONS, r.occasion ?? "other")}
-                    {r.event_date ? ` · ${new Date(r.event_date).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}` : ""} · received{" "}
-                    {new Date(r.created_at).toLocaleString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
+                  <p className="text-xs uppercase tracking-widest text-gold">{r.reference}</p>
+                  <h3 className="mt-1 font-display text-3xl text-fg">{r.fullName}</h3>
+                  <p className="text-sm text-muted">
+                    {r.kind === "class" ? courses.find((c) => c.id === r.courseId)?.title ?? "Class" : r.category ? getCategory(r.category).label : "Outfit"}
+                    {r.eventDate ? ` · ${r.eventDate}` : ""} · {r.createdAt.toLocaleDateString("en-GB", { day: "numeric", month: "short" })}
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  <a
-                    className="btn-gold !px-4 !py-2.5"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={clientWhatsappLink(r.phone, r.full_name, r.reference)}
-                  >
+                  <a className="btn btn-primary !min-h-10 !px-4" target="_blank" rel="noopener noreferrer" href={whatsappLinkTo(r.phone, `Hello ${r.fullName.split(" ")[0]}, thank you for contacting Olivet Apparel (${r.reference}).`)}>
                     WhatsApp
                   </a>
-                  <a className="btn-ghost !px-4 !py-2.5" href={`tel:${r.phone}`}>
+                  <a className="btn btn-secondary !min-h-10 !bg-page !px-4" href={`tel:${r.phone}`}>
                     Call
                   </a>
-                  {r.email && (
-                    <a className="btn-ghost !px-4 !py-2.5" href={`mailto:${r.email}?subject=${encodeURIComponent(`Your Olivet Apparel booking ${r.reference}`)}`}>
-                      Email
-                    </a>
-                  )}
                 </div>
               </div>
-              <dl className="mt-5 grid gap-x-8 gap-y-2 text-sm sm:grid-cols-2">
+              <dl className="mt-4 grid gap-x-8 gap-y-1 text-sm sm:grid-cols-2">
                 {[
                   ["Phone", r.phone],
                   ["Email", r.email],
-                  ["Prefers", r.preferred_contact],
-                  ["Looks", r.look_slugs.map((s) => getLook(s)?.title ?? s).join(", ")],
-                  ["Fit", r.fit.replaceAll("_", " ")],
-                  ["Measurements", r.measurements ? Object.entries(r.measurements).map(([k, v]) => `${k} ${v}`).join(" · ") : null],
-                  ["Delivery", r.delivery],
-                  ["Budget", r.budget_range],
-                  ["Style Finder", r.style_finder?.replaceAll("|", ", ")],
-                  ["Photos", r.attachment_count ? `${r.attachment_count} (sent by email)` : null],
+                  ["Style", r.styleRef],
+                  ["Budget", r.kind === "outfit" ? r.budget : null],
+                  ["Notes", r.notes],
                 ]
                   .filter(([, v]) => v)
                   .map(([k, v]) => (
-                    <div key={k} className="flex gap-3 border-b border-edge py-1.5">
-                      <dt className="w-28 shrink-0 text-xs uppercase tracking-[0.15em] text-gold/80">{k}</dt>
-                      <dd className="text-fg/90">{v}</dd>
+                    <div key={k} className="flex gap-3">
+                      <dt className="w-16 shrink-0 text-muted">{k}</dt>
+                      <dd className="text-fg">{v}</dd>
                     </div>
                   ))}
               </dl>
-              {r.notes && <p className="mt-4 rounded-xl bg-page p-4 text-sm italic text-fg/85">&ldquo;{r.notes}&rdquo;</p>}
-              <form action={updateBooking} className="mt-5 flex flex-wrap items-end gap-3">
+              {r.inspirationUrls.length > 0 && (
+                <div className="mt-4 flex gap-2">
+                  {r.inspirationUrls.map((u) => (
+                    <a key={u} href={u} target="_blank" rel="noopener noreferrer" className="relative block h-20 w-16 overflow-hidden rounded-xl">
+                      <Image src={u} alt="Client inspiration photo" fill sizes="4rem" className="object-cover" />
+                    </a>
+                  ))}
+                </div>
+              )}
+              <form action={updateRequest} className="mt-5 flex flex-wrap items-end gap-3">
                 <input type="hidden" name="id" value={r.id} />
-                <label className="text-xs text-muted">
-                  Status
-                  <select name="status" defaultValue={r.status} className="mt-1 block rounded-xl border border-edge bg-page px-3 py-2 text-sm text-fg">
-                    {STATUSES.map((s) => (
-                      <option key={s} value={s}>
-                        {statusLabel(s)}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-                <label className="min-w-[14rem] flex-1 text-xs text-muted">
-                  Private notes
-                  <input name="admin_notes" defaultValue={r.admin_notes ?? ""} className="mt-1 block w-full rounded-xl border border-edge bg-page px-3 py-2 text-sm text-fg" />
-                </label>
-                <button className="btn-ghost !px-4 !py-2.5">Save</button>
+                <select name="status" defaultValue={r.status} className="field !min-h-10 !w-auto !bg-page !py-2 text-sm" aria-label="Status">
+                  {BOOKING_STATUSES.map((s) => (
+                    <option key={s} value={s}>
+                      {statusLabel(s)}
+                    </option>
+                  ))}
+                </select>
+                <input name="adminNotes" defaultValue={r.adminNotes ?? ""} placeholder="Private notes" className="field !min-h-10 !bg-page !py-2 text-sm sm:flex-1" aria-label="Private notes" />
+                <button className="btn btn-secondary !min-h-10 !bg-page !px-4">Save</button>
               </form>
             </li>
           ))}
         </ul>
       )}
-    </div>
+    </section>
   );
 }
 
 function Notice({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="mt-10 max-w-xl rounded-[1.5rem] border border-edge bg-card p-8">
-      <h1 className="font-display text-3xl text-fg">{title}</h1>
-      <p className="mt-3 text-muted">{children}</p>
+    <div className="mt-4 max-w-xl rounded-3xl bg-card p-6">
+      <p className="font-display text-2xl text-fg">{title}</p>
+      <p className="mt-2 text-muted">{children}</p>
     </div>
   );
 }

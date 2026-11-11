@@ -4,7 +4,7 @@ import "./globals.css";
 import { site } from "@/content/site";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { WhatsAppFab } from "@/components/layout/WhatsAppFab";
+import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -28,7 +28,7 @@ const jost = Jost({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} | Custom-made outfits in Lagos`,
+    default: `${site.name} | Bespoke fashion house in Lagos`,
     template: `%s | ${site.name}`,
   },
   description: site.description,
@@ -64,7 +64,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <Footer />
-        <WhatsAppFab />
+        <WhatsAppButton />
       </body>
     </html>
   );

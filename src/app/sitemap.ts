@@ -1,12 +1,11 @@
 import type { MetadataRoute } from "next";
-import { collections, looks } from "@/content/looks";
+import { CATEGORIES } from "@/domain/catalog";
 import { site } from "@/content/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const pages = ["", "/styles", "/style-finder", "/about", "/book"];
+  const pages = ["", "/portfolio", "/services", "/classes", "/about", "/book"];
   return [
     ...pages.map((p) => ({ url: `${site.url}${p}`, priority: p === "" ? 1 : 0.8 })),
-    ...collections.map((c) => ({ url: `${site.url}/styles/${c.slug}`, priority: 0.7 })),
-    ...looks.map((l) => ({ url: `${site.url}/looks/${l.slug}`, priority: 0.6 })),
+    ...CATEGORIES.map((c) => ({ url: `${site.url}/portfolio?category=${c.id}`, priority: 0.6 })),
   ];
 }

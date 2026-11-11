@@ -2,26 +2,14 @@
 
 | # | Decision | Reason |
 |---|---|---|
-| 1 | Booking is the first job of the site; showcase is second. | The site exists to win clients. |
-| 2 | Plain, short copy. The home page states what the business is in one line. Sections use everyday names (Styles, About, Book now). No em dashes. | The first version was wordy and confusing for the owner. |
-| 3 | Brand colours are black and gold, from the client's logo. The site follows the device theme: black and gold in dark mode, ivory and deep gold in light mode. | Client brand, plus an owner request for automatic light and dark mode. |
-| 4 | No texture overlays, shimmer or scroll-linked fades. Motion is limited to the scroll thread and the sketch slider. | Earlier effects flickered and looked artificial. |
-| 5 | Styles are drawn in code until photography exists. | Launch could not wait for a photoshoot, and stock photos would misrepresent her work. |
-| 6 | Content lives in typed files. Only bookings are in SQL. | Fastest route to launch. Editing styles from the studio is on the roadmap. |
-| 7 | PostgreSQL with plain parameterised SQL and no ORM. | One table does not justify an ORM. |
-| 8 | Save the booking before sending email, and always offer the WhatsApp hand-off. | A lead must never be lost to an email failure or missing configuration. |
-| 9 | Email through Resend's HTTP API with `fetch`. | No SDK dependency for one request. |
-| 10 | Inspiration photos are compressed in the browser and emailed, not stored. | No storage cost and no client photos kept on a server. |
-| 11 | Style Finder and "you may also like" use deterministic scoring. | Instant, free, predictable and testable. |
-| 12 | AI try-on uses a free open-source model behind a server proxy, enabled per style. | No per-image cost. The provider can be swapped without touching the UI. |
-| 13 | Every backend feature switches on with an environment variable. | The site works at each stage of setup. |
-
-## Open questions for the client
-
-1. Confirm what she makes, and the names and descriptions of the styles.
-2. Show prices, price ranges, or price on request?
-3. Real email address, Instagram handle and studio location.
-4. Typical turnaround times, and whether rush orders are offered.
-5. Photos of finished work, plus sketches and fittings if available.
-6. Custom domain.
-7. Online deposits later?
+| 1 | The portfolio is the centre of the site, followed by services, classes and booking. | Clients choose a designer by her work. |
+| 2 | Seven categories: Bridal, Prom, Dinner, Corporate, Everyday, Ankara, Trousers. Defined once in the domain. | Matches what the designer makes. One source of truth for filters, services and the booking form. |
+| 3 | Clean Architecture with ports and adapters. | Business rules stay testable and independent of Vercel, Postgres and Next.js. Adapters can be swapped. |
+| 4 | Portfolio photos live in Vercel Blob, with category and title encoded in the storage path. | Fast, free at this scale, managed by the designer from the studio, and no database needed for photos. |
+| 5 | Booking emails go through FormSubmit, with WhatsApp and `mailto:` buttons always shown. | Free, no account or API key, and a request can never be lost to a missing configuration. |
+| 6 | Requests are saved to Postgres only when a database is connected. | The site works before every service is set up. |
+| 7 | Plain, short copy; no em dashes; restrained design with few borders. | Owner feedback on earlier versions. |
+| 8 | Automatic light and dark mode: ivory and deep gold, black and gold. | Owner request; both stay true to the brand. |
+| 9 | No texture overlays, scroll-linked animation or full-page SVG effects. | An earlier full-page animated SVG caused flicker on phones. |
+| 10 | Class prices are placeholders between ₦100,000 and ₦230,000. | Agreed range until the designer confirms. |
+| 11 | Portfolio images must be the designer's own work or properly licensed, and are labelled as styles she makes rather than as past client work unless they are. | Clients trust a portfolio. Misattributed images are a legal and reputational risk. |

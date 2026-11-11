@@ -2,26 +2,23 @@
 
 ## Done
 
-- Home, styles, style pages, Find my style, About
-- Booking form with live order ticket, lead-time check and inspiration photos
-- Bookings saved to PostgreSQL, emailed through Resend, handed to WhatsApp
-- Private studio inbox with status and notes
-- AI try-on route and dialog (enabled per style once a garment photo is added)
+- Portfolio with categories, full-screen viewer and booking from any photo
+- Services, Classes, About and Book pages
+- Booking for outfits and classes, delivered by FormSubmit, WhatsApp and email
+- Studio: photo uploads to Vercel Blob, request inbox when a database is connected
+- AI try-on on any portfolio photo
 - Automatic light and dark mode
-- SEO: metadata, social preview image, sitemap, robots
-- Unit tests and CI
-- Deployed to Vercel with automatic deploys from `main`
+- Clean Architecture refactor, unit tests, CI
 
 ## Next
 
-- Connect the database and email in production
-- Replace illustrations with photography
-- Real copy, prices and contact details from the client
-- Custom domain and verified email sender
+- Fill the portfolio with the designer's photos
+- Set the booking inbox email and activate FormSubmit
+- Confirm class prices, durations and start dates
+- Custom domain
 
 ## Later
 
-- Edit styles and fabrics from the studio
 - Client testimonials
-- Online deposits
-- Appointment calendar
+- Online deposits for orders and classes
+- Class schedule with start dates

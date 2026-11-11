@@ -1,79 +1,62 @@
 import Image from "next/image";
 import Link from "next/link";
-import { nav, site, whatsappLink } from "@/content/site";
-import { collections } from "@/content/looks";
+import { navigation, site, whatsappLink } from "@/content/site";
 
 export function Footer() {
   return (
-    <footer className="on-dark relative border-t border-edge bg-panel">
-      <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-8 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+    <footer className="surface-dark">
+      <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-8 md:grid-cols-[1.5fr_1fr_1fr]">
         <div>
-          <Image src="/brand/lockup.png" alt="Olivet Apparel" width={180} height={138} className="h-auto w-40" />
-          <p className="mt-6 max-w-xs text-sm leading-relaxed text-muted">{site.description}</p>
+          <Image src="/brand/lockup.png" alt="Olivet Apparel" width={180} height={138} className="h-auto w-36" />
+          <p className="mt-6 max-w-sm text-sm leading-relaxed text-muted">{site.description}</p>
         </div>
-
         <div>
-          <p className="kicker mb-5">Styles</p>
-          <ul className="space-y-3 text-sm text-fg/80">
-            {collections.map((c) => (
-              <li key={c.slug}>
-                <Link className="transition-colors hover:text-gold-light" href={`/styles/${c.slug}`}>
-                  {c.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <p className="kicker mb-5">Explore</p>
-          <ul className="space-y-3 text-sm text-fg/80">
-            {nav.map((n) => (
+          <p className="eyebrow mb-5">Explore</p>
+          <ul className="space-y-3 text-sm">
+            {navigation.map((n) => (
               <li key={n.href}>
-                <Link className="transition-colors hover:text-gold-light" href={n.href}>
+                <Link className="text-fg/80 hover:text-gold-light" href={n.href}>
                   {n.label}
                 </Link>
               </li>
             ))}
             <li>
-              <Link className="transition-colors hover:text-gold-light" href="/book">
+              <Link className="text-fg/80 hover:text-gold-light" href="/book">
                 Book now
               </Link>
             </li>
           </ul>
         </div>
-
         <div>
-          <p className="kicker mb-5">Studio</p>
+          <p className="eyebrow mb-5">Contact</p>
           <ul className="space-y-3 text-sm text-fg/80">
             <li>{site.city}</li>
             <li>
-              <a className="transition-colors hover:text-gold-light" href={`tel:+${site.whatsapp}`}>
+              <a className="hover:text-gold-light" href={`tel:+${site.whatsapp}`}>
                 {site.phoneDisplay}
               </a>
             </li>
             <li>
-              <a className="transition-colors hover:text-gold-light" href={whatsappLink("Hello Olivet Apparel")} target="_blank" rel="noopener noreferrer">
+              <a className="hover:text-gold-light" href={whatsappLink("Hello Olivet Apparel")} target="_blank" rel="noopener noreferrer">
                 WhatsApp
               </a>
             </li>
             <li>
-              <a className="transition-colors hover:text-gold-light" href={`mailto:${site.email}`}>
+              <a className="hover:text-gold-light" href={`mailto:${site.email}`}>
                 {site.email}
               </a>
             </li>
             <li>
-              <a className="transition-colors hover:text-gold-light" href={`https://instagram.com/${site.instagram}`} target="_blank" rel="noopener noreferrer">
+              <a className="hover:text-gold-light" href={`https://instagram.com/${site.instagram}`} target="_blank" rel="noopener noreferrer">
                 @{site.instagram}
               </a>
             </li>
           </ul>
         </div>
       </div>
-      <div className="hairline opacity-40" />
-      <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-2 px-4 py-6 text-xs tracking-wide text-muted sm:flex-row sm:items-center sm:px-8">
+      <div className="mx-auto flex max-w-7xl flex-col justify-between gap-2 px-4 pb-10 text-xs text-muted sm:flex-row sm:px-8">
         <p>© Olivet Apparel by {site.designer}</p>
-        <p>Custom outfits, made to fit you.</p>
+        <p>{site.tagline}</p>
       </div>
     </footer>
   );
