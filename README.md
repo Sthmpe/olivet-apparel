@@ -20,6 +20,10 @@ Website for **Olivet Apparel**, a bespoke fashion house in Lagos run by designer
 | **AI try-on** | Visitors upload a photo and preview a portfolio style on themselves, using an open-source model behind a server route. |
 | **Theme** | Follows the device setting: black and gold in dark mode, ivory and deep gold in light mode. |
 
+### Portfolio images
+
+The launch portfolio holds 21 AI-generated reference photos of faceless dress forms, three per category, made with Figma AI in one consistent studio style. They show the styles the designer makes and are stored in Vercel Blob like any studio upload, so she can replace them with photos of her own work from the studio page.
+
 ## Technology
 
 | Layer | Choice |

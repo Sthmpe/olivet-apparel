@@ -9,10 +9,11 @@
 - AI try-on on any portfolio photo
 - Automatic light and dark mode
 - Clean Architecture refactor, unit tests, CI
+- Launch portfolio: 21 reference photos across all seven categories
 
 ## Next
 
-- Fill the portfolio with the designer's photos
+- Replace the reference photos with the designer's own work, from the studio
 - Set the booking inbox email and activate FormSubmit
 - Confirm class prices, durations and start dates
 - Custom domain

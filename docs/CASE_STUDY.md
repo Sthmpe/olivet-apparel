@@ -31,6 +31,7 @@ She needed a site that:
 - **No database for photos.** Each upload's category, title and timestamp are encoded in its storage path, so the portfolio is just a cached listing of a Blob folder.
 - **Graceful degradation.** Every external service is optional. With nothing configured, the site still takes bookings through WhatsApp.
 - **Caching.** Pages are prerendered and the portfolio listing is cached with `use cache`. Uploading or deleting a photo invalidates the cache tag, so changes appear immediately.
+- **Launch content without a photoshoot.** The designer had no photos ready, and copying images from Pinterest would have meant showing other designers' work. I generated a consistent set of faceless dress-form reference photos and loaded them through the same studio upload path she uses, so replacing them later needs no code.
 - **Iterating on feedback.** The first version was visually ambitious (a scroll-drawn SVG thread). Client feedback showed it was confusing and flickered on phones. I replaced it with a simpler, photo-first layout and plain copy, which made the purpose of the site clear in seconds.
 
 ## Results

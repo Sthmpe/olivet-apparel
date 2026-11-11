@@ -13,3 +13,4 @@
 | 9 | No texture overlays, scroll-linked animation or full-page SVG effects. | An earlier full-page animated SVG caused flicker on phones. |
 | 10 | Class prices are placeholders between ₦100,000 and ₦230,000. | Agreed range until the designer confirms. |
 | 11 | Portfolio images must be the designer's own work or properly licensed, and are labelled as styles she makes rather than as past client work unless they are. | Clients trust a portfolio. Misattributed images are a legal and reputational risk. |
+| 12 | The launch portfolio uses 21 AI-generated reference photos (Figma AI): faceless dress forms in one consistent studio setting, three per category, no logos or watermarks. They are uploaded through the studio like any other photo and can be deleted there. | Pinterest images belong to other designers, and free photo libraries had almost no suitable fashion shots. These show the styles she makes until her own photos replace them. |
