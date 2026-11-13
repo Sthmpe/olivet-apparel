@@ -1,8 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Cinzel, Cormorant_Garamond, Jost } from "next/font/google";
 import "./globals.css";
-import { seo, site } from "@/content/site";
-import { CATEGORIES } from "@/domain/catalog";
+import { description, seo, site, town } from "@/content/site";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { businessSchema, websiteSchema } from "@/components/seo/structured-data";
 import { Header } from "@/components/layout/Header";
@@ -31,15 +30,15 @@ const jost = Jost({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} | Bespoke fashion house in Lagos`,
+    default: `${site.name} | Bespoke fashion house in ${town}, Nigeria`,
     template: `%s | ${site.name}`,
   },
-  description: site.description,
+  description,
   openGraph: {
     type: "website",
     siteName: site.name,
     title: `${site.name} | ${site.tagline}`,
-    description: site.description,
+    description,
   },
   twitter: { card: "summary_large_image" },
   alternates: { canonical: "/" },
@@ -63,8 +62,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${cormorant.variable} ${cinzel.variable} ${jost.variable} antialiased`}>
       <body className="flex min-h-dvh flex-col">
-        <JsonLd data={businessSchema(site, CATEGORIES)} />
-        <JsonLd data={websiteSchema(site)} />
+        <JsonLd data={businessSchema()} />
+        <JsonLd data={websiteSchema()} />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-gold focus:px-4 focus:py-2 focus:text-page"

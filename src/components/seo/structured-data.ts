@@ -1,41 +1,43 @@
-import type { Category } from "@/domain/catalog";
+import { CATEGORIES, type Category } from "@/domain/catalog";
 import { formatNaira, type Course } from "@/domain/courses";
+import { description, site, socialLinks, town } from "@/content/site";
 
 /**
- * schema.org structured data. Search engines read it to show the business,
- * its services and its classes correctly in results. Pure functions, so the
- * output is easy to test.
+ * schema.org structured data. Search engines and AI assistants read it to
+ * understand who the business is, where it is, what it offers and how to
+ * contact it. Built from the site settings, so it never drifts from the page.
  */
 
-type SiteInfo = {
-  name: string;
-  url: string;
-  description: string;
-  phoneDisplay: string;
-  email: string;
-  city: string;
-  instagram: string;
-  designer: string;
-};
-
-export function businessSchema(site: SiteInfo, categories: readonly Category[]) {
-  const [locality, country = "Nigeria"] = site.city.split(",").map((s) => s.trim());
+export function businessSchema(categories: readonly Category[] = CATEGORIES) {
+  const region = site.city.split(",")[1]?.trim();
   return {
     "@context": "https://schema.org",
     "@type": "ClothingStore",
     "@id": `${site.url}/#business`,
     name: site.name,
+    alternateName: "Olivet Apparel by Oluwagbemisola",
     url: site.url,
-    description: site.description,
+    description,
+    slogan: site.tagline,
     logo: `${site.url}/brand/lockup.png`,
     image: `${site.url}/opengraph-image.jpg`,
     telephone: site.phoneDisplay.replace(/\s/g, ""),
     email: site.email,
     priceRange: "₦₦",
-    address: { "@type": "PostalAddress", addressLocality: locality, addressCountry: country === "Nigeria" ? "NG" : country },
-    areaServed: { "@type": "Country", name: "Nigeria" },
-    founder: { "@type": "Person", name: site.designer },
-    sameAs: [`https://instagram.com/${site.instagram}`],
+    currenciesAccepted: "NGN",
+    address: { "@type": "PostalAddress", addressLocality: town, addressRegion: region, addressCountry: "NG" },
+    areaServed: [{ "@type": "City", name: town }, { "@type": "Country", name: site.country }],
+    founder: { "@type": "Person", name: site.designerFullName, alternateName: site.designer, jobTitle: "Fashion designer" },
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "customer service",
+      telephone: site.phoneDisplay.replace(/\s/g, ""),
+      email: site.email,
+      availableLanguage: ["English"],
+      url: `https://wa.me/${site.whatsapp}`,
+    },
+    sameAs: socialLinks.map((s) => s.url),
+    knowsAbout: ["Bespoke tailoring", "Bridal gowns", "Prom dresses", "Corporate wear", "Ankara fashion", "Sewing classes"],
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Bespoke fashion",
@@ -47,11 +49,11 @@ export function businessSchema(site: SiteInfo, categories: readonly Category[]) 
   };
 }
 
-export function websiteSchema(site: Pick<SiteInfo, "name" | "url">) {
-  return { "@context": "https://schema.org", "@type": "WebSite", "@id": `${site.url}/#website`, name: site.name, url: site.url };
+export function websiteSchema() {
+  return { "@context": "https://schema.org", "@type": "WebSite", "@id": `${site.url}/#website`, name: site.name, url: site.url, publisher: { "@id": `${site.url}/#business` } };
 }
 
-export function coursesSchema(site: Pick<SiteInfo, "name" | "url">, courses: readonly Course[]) {
+export function coursesSchema(courses: readonly Course[]) {
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",

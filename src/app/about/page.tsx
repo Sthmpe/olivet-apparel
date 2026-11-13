@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { site, whatsappLink } from "@/content/site";
+import { site, town, whatsappLink } from "@/content/site";
 import { PageHeader } from "@/components/ui/PageHeader";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "About Olivet Apparel, a bespoke fashion house in Lagos founded by designer Titilayomi.",
+  description: "About Olivet Apparel, a bespoke fashion house in Ilorin, Nigeria, founded by designer Oluwagbemisola.",
   alternates: { canonical: "/about" },
 };
 
@@ -19,7 +19,7 @@ const values = [
 
 const faqs = [
   { q: "How early should I book?", a: "Bridal: 3 to 6 months before your date. Prom, dinner and corporate wear: 3 to 6 weeks. Everyday and Ankara pieces: 1 to 3 weeks. Need it sooner? Ask us." },
-  { q: "I don't live in Lagos. Can I still order?", a: "Yes. We take your measurements on a video call and deliver to you." },
+  { q: `I don't live in ${town}. Can I still order?`, a: "Yes. We take your measurements on a video call and deliver to you." },
   { q: "Can I change a style from the portfolio?", a: "Yes. Colour, neckline, sleeves and length can all be changed to suit you." },
   { q: "Do you make outfits for groups?", a: "Yes. Tell us the group size and date when you book." },
   { q: "How do I pay?", a: "We agree the price after your consultation. A deposit confirms your order and the balance is paid before delivery." },

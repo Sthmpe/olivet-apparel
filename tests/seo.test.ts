@@ -7,14 +7,16 @@ import { existsSync, readFileSync } from "node:fs";
 
 describe("search engine data", () => {
   it("describes the business with every service category", () => {
-    const data = businessSchema(site, CATEGORIES);
+    const data = businessSchema(CATEGORIES);
     expect(data["@type"]).toBe("ClothingStore");
-    expect(data.address.addressCountry).toBe("NG");
+    expect(data.address).toMatchObject({ addressLocality: "Ilorin", addressRegion: "Kwara State", addressCountry: "NG" });
+    expect(data.founder.name).toBe(site.designerFullName);
+    expect(data.sameAs).toHaveLength(3);
     expect(data.hasOfferCatalog.itemListElement).toHaveLength(CATEGORIES.length);
   });
 
   it("lists every class with a price in naira", () => {
-    const data = coursesSchema(site, courses);
+    const data = coursesSchema(courses);
     expect(data.itemListElement).toHaveLength(courses.length);
     expect(data.itemListElement[0].item.offers.priceCurrency).toBe("NGN");
   });

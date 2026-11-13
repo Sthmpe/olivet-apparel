@@ -1,6 +1,6 @@
 # Case study: Olivet Apparel
 
-**Client:** Olivet Apparel, a bespoke fashion house in Lagos
+**Client:** Olivet Apparel, a bespoke fashion house in Ilorin, Nigeria
 **Role:** Design and full-stack development
 **Stack:** Next.js 16, TypeScript, Tailwind CSS 4, Vercel Blob, PostgreSQL, Vitest, GitHub Actions, Vercel
 **Live:** https://olivet-apparel.vercel.app

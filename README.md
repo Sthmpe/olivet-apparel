@@ -1,6 +1,6 @@
 # Olivet Apparel
 
-Website for **Olivet Apparel**, a bespoke fashion house in Lagos run by designer Titilayomi. Clients browse her portfolio by category, book an outfit or a sewing class, and reach her on WhatsApp or by email. She manages her own portfolio photos and incoming requests from a private studio page.
+Website for **Olivet Apparel**, a bespoke fashion house in Ilorin, Nigeria, run by designer Oluwagbemisola. Clients browse her portfolio by category, book an outfit or a sewing class, and reach her on WhatsApp or by email. She manages her own portfolio photos and incoming requests from a private studio page.
 
 **Live site:** https://olivet-apparel.vercel.app
 
@@ -118,7 +118,8 @@ The site runs with no environment variables. Each one switches a feature on.
 | Variable | Feature |
 |---|---|
 | `NEXT_PUBLIC_WHATSAPP_NUMBER`, `NEXT_PUBLIC_PHONE_DISPLAY` | WhatsApp buttons and phone number |
-| `NEXT_PUBLIC_CONTACT_EMAIL`, `NEXT_PUBLIC_INSTAGRAM`, `NEXT_PUBLIC_STUDIO_CITY` | Public contact details |
+| `NEXT_PUBLIC_CONTACT_EMAIL`, `NEXT_PUBLIC_STUDIO_CITY` | Public email and "Town, State" location |
+| `NEXT_PUBLIC_INSTAGRAM`, `NEXT_PUBLIC_TIKTOK`, `NEXT_PUBLIC_YOUTUBE` | Social handles without the @ |
 | `NEXT_PUBLIC_SITE_URL` | Canonical URL for SEO and social previews |
 | `NEXT_PUBLIC_BOOKING_EMAIL` | Inbox for booking requests through FormSubmit. The first request sends a one-time activation email. |
 | `BLOB_READ_WRITE_TOKEN` | Portfolio uploads and inspiration photos. Added by Vercel when a Blob store is connected. |
@@ -148,6 +149,7 @@ docs/              Architecture, decisions, roadmap, case study
 - Every page has a title, description, canonical URL and social preview image.
 - schema.org structured data describes the business (a `ClothingStore` with its services) and each class (`Course` with its price in naira). See `src/components/seo/structured-data.ts`.
 - **IndexNow**: on every push to `main`, the "Notify search engines" workflow waits for the deploy and submits the sitemap URLs to IndexNow, which Bing, Yahoo, DuckDuckGo (through Bing), Yandex, Seznam and Naver use. The key file lives in `public/`. Run it by hand with `node scripts/indexnow.mjs`.
+- **AI assistants**: `/llms.txt` gives ChatGPT, Claude, Perplexity and Gemini a plain-text summary of the business, contacts, services and classes, and `robots.txt` explicitly allows their crawlers.
 - **Google** does not use IndexNow. Verify the site in Search Console with `GOOGLE_SITE_VERIFICATION` and submit `/sitemap.xml` there.
 
 ## Quality

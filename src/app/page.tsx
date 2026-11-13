@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CATEGORIES } from "@/domain/catalog";
-import { site, whatsappLink } from "@/content/site";
+import { site, town, whatsappLink } from "@/content/site";
 import { courses } from "@/content/courses";
 import { processSteps } from "@/content/services";
 import { getPortfolio } from "@/infrastructure/portfolio-query";
@@ -19,7 +19,7 @@ export default async function HomePage() {
       {/* Hero */}
       <section className="mx-auto grid max-w-7xl gap-10 px-4 pb-16 pt-8 sm:px-8 md:grid-cols-2 md:items-stretch md:pb-24 md:pt-14">
         <div className="flex flex-col justify-center">
-          <p className="eyebrow">Bespoke fashion house · {site.city.split(",")[0]}</p>
+          <p className="eyebrow">Bespoke fashion house · {town}</p>
           <h1 className="mt-5 font-display text-[3.3rem] font-light leading-[0.98] text-fg sm:text-7xl lg:text-[5.4rem]">
             Elegance, <em className="gold-text font-normal">made around you.</em>
           </h1>

@@ -1,4 +1,5 @@
 import type { CategoryId } from "@/domain/catalog";
+import { town } from "./site";
 
 /** What each service includes. One entry per category in the catalog domain. */
 export const serviceDetails: Record<CategoryId, { includes: string[] }> = {
@@ -13,7 +14,7 @@ export const serviceDetails: Record<CategoryId, { includes: string[] }> = {
 
 export const processSteps = [
   { title: "Choose a style", body: "Pick from the portfolio, or send a photo of what you have in mind." },
-  { title: "Get measured", body: "In the studio, or on a video call if you are not in Lagos." },
+  { title: "Get measured", body: `In the studio, or on a video call if you are not in ${town}.` },
   { title: "Fitting", body: "We fit the outfit on you and adjust until it sits perfectly." },
   { title: "Delivery", body: "Finished, pressed and ready before your date." },
 ];

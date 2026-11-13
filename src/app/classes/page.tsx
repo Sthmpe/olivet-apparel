@@ -10,14 +10,14 @@ import { coursesSchema } from "@/components/seo/structured-data";
 
 export const metadata: Metadata = {
   title: "Sewing classes",
-  description: "Learn to sew with Olivet Apparel: foundation, pattern drafting and bridal corsetry classes, in Lagos or online.",
+  description: "Learn to sew with Olivet Apparel: foundation, pattern drafting and bridal corsetry classes, in Ilorin or online.",
   alternates: { canonical: "/classes" },
 };
 
 export default function ClassesPage() {
   return (
     <>
-      <JsonLd data={coursesSchema(site, courses)} />
+      <JsonLd data={coursesSchema(courses)} />
       <PageHeader eyebrow="Classes" title={<>Learn to sew, <em className="gold-text">step by step.</em></>}>
         Practical, hands-on classes with {site.designer}. Start with Foundation, then move to Intermediate and Advanced. Join
         us in the studio or learn online at your own pace.
