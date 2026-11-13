@@ -22,6 +22,18 @@ export const site = {
   city: process.env.NEXT_PUBLIC_STUDIO_CITY ?? "Lagos, Nigeria",
 } as const;
 
+/**
+ * Search engine settings. Verification codes come from Google Search Console
+ * and Bing Webmaster Tools; they are public by design and only prove ownership.
+ * The IndexNow key must match the file of the same name in /public.
+ */
+export const seo = {
+  googleVerification: process.env.GOOGLE_SITE_VERIFICATION ?? "",
+  bingVerification: process.env.BING_SITE_VERIFICATION ?? "",
+  yandexVerification: process.env.YANDEX_SITE_VERIFICATION ?? "",
+  indexNowKey: "53374bb85afad88745a79ec2962d9b10",
+} as const;
+
 export function whatsappLink(message: string): string {
   return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(message)}`;
 }

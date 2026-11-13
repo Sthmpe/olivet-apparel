@@ -8,6 +8,7 @@ import { features } from "@/infrastructure/container";
 export const metadata: Metadata = {
   title: "Book",
   description: "Book a bespoke outfit or a sewing class with Olivet Apparel. We reply within one working day.",
+  alternates: { canonical: "/book" },
 };
 
 export default function BookPage() {

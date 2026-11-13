@@ -125,6 +125,7 @@ The site runs with no environment variables. Each one switches a feature on.
 | `DATABASE_URL` | Request inbox in the studio |
 | `STUDIO_PASSWORD`, `STUDIO_SECRET` | The private `/studio` page |
 | `HF_TOKEN`, `TRYON_SPACE` | Optional AI try-on settings |
+| `GOOGLE_SITE_VERIFICATION`, `BING_SITE_VERIFICATION`, `YANDEX_SITE_VERIFICATION` | Ownership codes from Google Search Console, Bing Webmaster Tools and Yandex Webmaster. Redeploy after setting. |
 
 ## Project structure
 
@@ -140,6 +141,14 @@ tests/             Domain and use-case tests with in-memory fakes
 db/schema.sql      Reference database schema
 docs/              Architecture, decisions, roadmap, case study
 ```
+
+## Search engines
+
+- `robots.txt` allows every public page and blocks `/studio` and `/api`. `sitemap.xml` lists the public pages.
+- Every page has a title, description, canonical URL and social preview image.
+- schema.org structured data describes the business (a `ClothingStore` with its services) and each class (`Course` with its price in naira). See `src/components/seo/structured-data.ts`.
+- **IndexNow**: on every push to `main`, the "Notify search engines" workflow waits for the deploy and submits the sitemap URLs to IndexNow, which Bing, Yahoo, DuckDuckGo (through Bing), Yandex, Seznam and Naver use. The key file lives in `public/`. Run it by hand with `node scripts/indexnow.mjs`.
+- **Google** does not use IndexNow. Verify the site in Search Console with `GOOGLE_SITE_VERIFICATION` and submit `/sitemap.xml` there.
 
 ## Quality
 

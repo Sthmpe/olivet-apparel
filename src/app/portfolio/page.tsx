@@ -7,6 +7,7 @@ import { getPortfolio } from "@/infrastructure/portfolio-query";
 export const metadata: Metadata = {
   title: "Portfolio",
   description: "Bridal, prom, dinner, corporate, everyday, Ankara and trouser styles by Olivet Apparel.",
+  alternates: { canonical: "/portfolio" },
 };
 
 export default async function PortfolioPage() {

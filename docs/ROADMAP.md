@@ -9,6 +9,7 @@
 - AI try-on on any portfolio photo
 - Automatic light and dark mode
 - Clean Architecture refactor, unit tests, CI
+- Search engines: structured data, canonical URLs, automatic IndexNow submissions
 - Launch portfolio: 21 reference photos across all seven categories
 
 ## Next
@@ -16,6 +17,8 @@
 - Replace the reference photos with the designer's own work, from the studio
 - Set the booking inbox email and activate FormSubmit
 - Confirm class prices, durations and start dates
+- Verify the site in Google Search Console and Bing Webmaster Tools
+- Google Business Profile
 - Custom domain
 
 ## Later

@@ -7,6 +7,7 @@ import { PageHeader } from "@/components/ui/PageHeader";
 export const metadata: Metadata = {
   title: "About",
   description: "About Olivet Apparel, a bespoke fashion house in Lagos founded by designer Titilayomi.",
+  alternates: { canonical: "/about" },
 };
 
 const values = [

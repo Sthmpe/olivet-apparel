@@ -10,6 +10,7 @@ import { PhotoPlaceholder } from "@/components/portfolio/PhotoPlaceholder";
 export const metadata: Metadata = {
   title: "Services",
   description: "Bespoke bridal, prom, dinner, corporate, everyday, Ankara and trouser outfits, made to measure in Lagos.",
+  alternates: { canonical: "/services" },
 };
 
 export default async function ServicesPage() {
