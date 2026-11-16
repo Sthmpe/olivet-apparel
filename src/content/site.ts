@@ -10,7 +10,7 @@ export const site = {
   tagline: "Bespoke fashion, designed around you.",
   /** The designer's own words, lightly edited for grammar. */
   intro:
-    "Olivet Apparel is a bespoke fashion house creating bridal, prom, dinner, corporate, Ankara and everyday couture, designed to bring out the elegance in your body, your story and your day.",
+    "Olivet Apparel is a bespoke fashion house creating bridal, prom, dinner, corporate and everyday couture, designed to bring out the elegance in your body, your story and your day.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://olivet-apparel.vercel.app",
   /** International format, digits only. */
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "2347043366083",
@@ -31,7 +31,7 @@ export const site = {
 /** The town alone, for short copy such as "Fashion designer in Ilorin". */
 export const town = site.city.split(",")[0].trim();
 
-export const description = `Bespoke fashion house in ${town}, Nigeria, by designer ${site.designer}: bridal, prom, dinner, corporate, Ankara and everyday outfits made to measure, plus sewing classes in person and online.`;
+export const description = `Bespoke fashion house in ${town}, Nigeria, by designer ${site.designer}: bridal, prom, dinner, corporate, everyday, Ankara and trouser outfits made to measure, plus sewing classes in person and online.`;
 
 export const socialLinks = [
   { label: "Instagram", handle: site.socials.instagram, url: `https://www.instagram.com/${site.socials.instagram}` },

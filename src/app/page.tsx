@@ -23,7 +23,7 @@ export default async function HomePage() {
           <h1 className="mt-5 font-display text-[3.3rem] font-light leading-[0.98] text-fg sm:text-7xl lg:text-[5.4rem]">
             Elegance, <em className="gold-text font-normal">made around you.</em>
           </h1>
-          <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted">{site.intro}</p>
+          <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted">{site.intro} Ankara wear and trousers too.</p>
           <div className="mt-9 flex flex-wrap gap-3">
             <Link href="/book" className="btn btn-primary">
               Book now
