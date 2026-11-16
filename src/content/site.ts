@@ -8,9 +8,9 @@ export const site = {
   designer: "Oluwagbemisola",
   designerFullName: "Racheal Solomon Oluwagbemisola",
   tagline: "Bespoke fashion, designed around you.",
-  /** The designer's own words, lightly edited for grammar. */
+  /** Home page and About page introduction, approved by the designer. */
   intro:
-    "Olivet Apparel is a bespoke fashion house creating bridal, prom, dinner, corporate and everyday couture, designed to bring out the elegance in your body, your story and your day.",
+    "Olivet Apparel is a bespoke fashion house creating bridal gowns, prom and dinner dresses, corporate wear, Ankara and everyday outfits, designed to bring out the elegance in your body, your story and your day.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://olivet-apparel.vercel.app",
   /** International format, digits only. */
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "2347043366083",
